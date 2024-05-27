@@ -6,7 +6,7 @@ const Testing = () => {
       <div className="column__title">
         <p>Тестирование</p>
       </div>
-      <Cards />{" "}
+      <Cards />
     </div>
   );
 };

@@ -17,7 +17,7 @@ const Cards = () => {
               </div>
             </a>
           </div>
-          <CardContent />{" "}
+          <CardContent />
         </div>
       </div>
 
@@ -35,7 +35,7 @@ const Cards = () => {
               </div>
             </a>
           </div>
-          <CardContent />{" "}
+          <CardContent />
         </div>
       </div>
 
@@ -53,7 +53,7 @@ const Cards = () => {
               </div>
             </a>
           </div>
-          <CardContent />{" "}
+          <CardContent />
         </div>
       </div>
     </div>
