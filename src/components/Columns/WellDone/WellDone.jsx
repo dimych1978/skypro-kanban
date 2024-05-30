@@ -1,4 +1,4 @@
-import Cards from "./Cards";
+import CardItem from "/src/components/Cards/CardItem/CardItem";
 
 const WellDone = () => {
   return (
@@ -6,7 +6,9 @@ const WellDone = () => {
       <div className="column__title">
         <p>Готово</p>
       </div>
-      <Cards />
+      <div className="cards">
+        <CardItem />
+      </div>
     </div>
   );
 };

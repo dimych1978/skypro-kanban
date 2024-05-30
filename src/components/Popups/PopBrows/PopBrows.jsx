@@ -1,4 +1,4 @@
-import Calendar from "../Calendar/Calendar";
+import Calendar from "/src/components/Calendar/Calendar";
 
 const PopBrows = () => {
   return (

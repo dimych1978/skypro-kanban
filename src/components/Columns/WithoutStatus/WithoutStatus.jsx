@@ -1,4 +1,4 @@
-import Cards from "./Cards";
+import CardItem from "/src/components/Cards/CardItem/CardItem";
 
 const WithoutStatus = () => {
   return (
@@ -6,7 +6,14 @@ const WithoutStatus = () => {
       <div className="column__title">
         <p>Без статуса</p>
       </div>
-      <Cards />
+      <div className="cards">
+        <CardItem />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+        <CardItem />
+      </div>
     </div>
   );
 };
