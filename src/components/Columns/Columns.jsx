@@ -1,17 +1,16 @@
-import AtWork from "./AtWork/AtWork";
-import Testing from "./Testing/Testing";
-import ToDo from "./ToDo/ToDo";
-import WellDone from "./WellDone/WellDone";
-import WithoutStatus from "./WithoutStatus/WithoutStatus";
+import { statusList } from "../../data";
+import Column from "./Column";
 
-const Columns = () => {
+const Columns = ({ cards }) => {
   return (
     <div className="main__content">
-      <WithoutStatus />
-      <ToDo />
-      <AtWork />
-      <Testing />
-      <WellDone />
+      {statusList.map(status => (
+        <Column
+          key={status}
+          title={status}
+          cardList={cards.filter(card => card.status === status)}
+        />
+      ))}
     </div>
   );
 };

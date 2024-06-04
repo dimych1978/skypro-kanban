@@ -1,12 +1,12 @@
 import Columns from "./Columns/Columns";
 
-const Main = () => {
+const Main = ({ cards }) => {
   return (
     <div>
       <main className="main">
         <div className="container">
           <div className="main__block">
-            <Columns />
+            <Columns cards={cards} />
           </div>
         </div>
       </main>
