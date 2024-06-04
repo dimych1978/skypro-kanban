@@ -1,19 +1,17 @@
-const Cards = () => {
+const CardItem = () => {
   return (
-    <div className="cards">
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <div className="card__theme _green">
-            <p className="_green">Research</p>
+          <div className="card__theme _orange">
+            <p className="_orange">Web Design</p>
           </div>
-          <a href="#popBrowse" target="_self">
-            <div className="card__btn">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </a>
+          <a href="#popBrowse" target="_self" />
+          <div className="card__btn">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
         <div className="card__content">
           <a href="" target="_blank">
@@ -53,8 +51,7 @@ const Cards = () => {
         </div>
       </div>
     </div>
-  </div>
-)
-}
+  );
+};
 
-export default Cards
+export default CardItem;

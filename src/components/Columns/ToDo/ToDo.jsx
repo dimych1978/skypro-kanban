@@ -1,4 +1,4 @@
-import Cards from "./Cards";
+import CardItem from "/src/components/Cards/CardItem/CardItem";
 
 const ToDo = () => {
   return (
@@ -6,7 +6,9 @@ const ToDo = () => {
       <div className="column__title">
         <p>Нужно сделать</p>
       </div>
-      <Cards />{" "}
+      <div className="cards">
+        <CardItem />
+      </div>
     </div>
   );
 };
