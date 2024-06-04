@@ -1,10 +1,13 @@
 import { useRef } from "react";
 import Calendar from "/src/components/Calendar/Calendar";
 
-const PopNewCard = ({ onAddCard, isVisible, onChange }) => {
+const PopNewCard = ({ onAddCard, isVisible, onChange, onVisible }) => {
   const ref = useRef();
   const handleChange = e => {
     onChange(e.target.value);
+  };
+  const handleVisible = () => {
+    onVisible(!isVisible);
   };
 
   return (
@@ -17,7 +20,7 @@ const PopNewCard = ({ onAddCard, isVisible, onChange }) => {
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">
+            <a className="pop-new-card__close" onClick={handleVisible}>
               &#10006;
             </a>
             <div className="pop-new-card__wrap">

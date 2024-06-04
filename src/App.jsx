@@ -60,6 +60,7 @@ function App() {
             onAddCard={onAddCard}
             isVisible={isVisible}
             onChange={handleChange}
+            onVisible={handleVisible}
           />
           <PopBrows />
           {/* <!-- pop-up end--> */}
