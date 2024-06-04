@@ -42,7 +42,7 @@ function App() {
     isVisible === "none" ? setIsVisible("block") : setIsVisible("none");
   };
 
-  const handleChange = newTask => {
+  const handleChange = (newTask) => {
     setNewTask(newTask);
   };
 

@@ -21,7 +21,7 @@ const PopupUser = () => {
 const Nav = ({ onVisible }) => {
   const [popupUser, setPopupUser] = useState(false);
   const [popupCard, setPopupCard] = useState(false);
-  
+
   const handleUser = () => {
     setPopupUser(!popupUser);
   };

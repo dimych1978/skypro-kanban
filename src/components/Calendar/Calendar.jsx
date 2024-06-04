@@ -4,7 +4,7 @@ import { useState } from "react";
 const Calendar = () => {
   const [value, setValue] = useState(format(new Date(), "dd.MM.yy"));
 
-  const handlerChange = e => {
+  const handlerChange = (e) => {
     setValue(e.target.value);
   };
 
