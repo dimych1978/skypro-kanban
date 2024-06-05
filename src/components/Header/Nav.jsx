@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PopNewCard from "../Popups/PopNewCard/PopNewCard";
+import { useState } from 'react';
+import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 
 const PopupUser = () => {
   return (

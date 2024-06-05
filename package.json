@@ -9,7 +9,13 @@
     "format": "npx prettier . --write",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "pre-commit": "yarn workspaces foreach run pre-commit"
+    "pre-commit": "yarn workspaces foreach run pre-commit",
+    "prepare": "husky"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint format"
+    }
   },
   "dependencies": {
     "date-fns": "^3.6.0",

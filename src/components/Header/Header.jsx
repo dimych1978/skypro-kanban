@@ -1,5 +1,5 @@
-import { LogoDark, LogoLight } from "./Logo";
-import Nav from "./Nav";
+import { LogoDark, LogoLight } from './Logo';
+import Nav from './Nav';
 
 const Header = ({ onVisible }) => {
   return (

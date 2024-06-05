@@ -1,4 +1,4 @@
-import CardItem from "/src/components/Cards/CardItem/CardItem";
+import CardItem from '/src/components/Cards/CardItem/CardItem';
 
 const Column = ({ title, cardList }) => {
   return (

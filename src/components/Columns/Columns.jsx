@@ -1,5 +1,5 @@
-import { statusList } from "../../data";
-import Column from "./Column";
+import { statusList } from '../../data';
+import Column from './Column';
 
 const Columns = ({ cards }) => {
   return (

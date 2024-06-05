@@ -1,4 +1,4 @@
-import Columns from "./Columns/Columns";
+import Columns from './Columns/Columns';
 
 const Main = ({ cards }) => {
   return (
