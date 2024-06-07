@@ -1,13 +1,26 @@
+import { useRef } from "react";
 import Calendar from "/src/components/Calendar/Calendar";
 
-const PopNewCard = () => {
+const PopNewCard = ({ onAddCard, isVisible, onChange, onVisible }) => {
+  const ref = useRef();
+  const handleChange = e => {
+    onChange(e.target.value);
+  };
+  const handleVisible = () => {
+    onVisible(!isVisible);
+  };
+
   return (
-    <div className="pop-new-card" id="popNewCard">
+    <div
+      className="pop-new-card"
+      id="popNewCard"
+      style={{ display: isVisible }}
+    >
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">
+            <a className="pop-new-card__close" onClick={handleVisible}>
               &#10006;
             </a>
             <div className="pop-new-card__wrap">
@@ -21,12 +34,14 @@ const PopNewCard = () => {
                     Название задачи
                   </label>
                   <input
+                    ref={ref}
                     className="form-new__input"
                     type="text"
                     name="name"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-new__block">
@@ -57,7 +72,11 @@ const PopNewCard = () => {
                 </div>
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate">
+            <button
+              className="form-new__create _hover01"
+              id="btnCreate"
+              onClick={onAddCard}
+            >
               Создать задачу
             </button>
           </div>
