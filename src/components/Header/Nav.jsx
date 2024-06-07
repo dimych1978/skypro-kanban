@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PopNewCard from "../Popups/PopNewCard/PopNewCard";
+import { useState } from 'react';
+import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 
 const PopupUser = () => {
   return (
@@ -21,7 +21,6 @@ const PopupUser = () => {
 const Nav = ({ onVisible }) => {
   const [popupUser, setPopupUser] = useState(false);
   const [popupCard, setPopupCard] = useState(false);
-  
   const handleUser = () => {
     setPopupUser(!popupUser);
   };

@@ -1,4 +1,4 @@
-import CardItem from "/src/components/Cards/CardItem/CardItem";
+import CardItem from '/src/components/Cards/CardItem/CardItem';
 
 const Column = ({ title, cardList }) => {
   return (
@@ -7,7 +7,7 @@ const Column = ({ title, cardList }) => {
         <p>{title}</p>
       </div>
       <div className="cards">
-        {cardList.map(card => (
+        {cardList.map((card) => (
           <CardItem
             key={card.id}
             theme={card.theme}

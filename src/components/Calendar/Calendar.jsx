@@ -1,10 +1,9 @@
-import { format } from "date-fns";
-import { useState } from "react";
+import { format } from 'date-fns';
+import { useState } from 'react';
 
 const Calendar = () => {
-  const [value, setValue] = useState(format(new Date(), "dd.MM.yy"));
-
-  const handlerChange = e => {
+  const [value, setValue] = useState(format(new Date(), 'dd.MM.yy'));
+  const handlerChange = (e) => {
     setValue(e.target.value);
   };
 
@@ -91,7 +90,7 @@ const Calendar = () => {
         <input type="hidden" id="datepick_value" value="08.09.2023" />
         <div className="calendar__period">
           <p className="calendar__p date-end">
-            Срок исполнения:{" "}
+            Срок исполнения:{' '}
             <span className="date-control">
               <input value={value} onChange={handlerChange} />
             </span>
