@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 
-const PopupUser = () => {
+const popupuser = () => {
   return (
     <div className="header__pop-user-set pop-user-set" id="user-set-target">
       {/* <!-- <a href="">x</a> --> */}
@@ -21,12 +21,11 @@ const PopupUser = () => {
 const Nav = ({ onVisible }) => {
   const [popupUser, setPopupUser] = useState(false);
   const [popupCard, setPopupCard] = useState(false);
-
-  const handleUser = () => {
+  const handleuser = () => {
     setPopupUser(!popupUser);
   };
 
-  const handleNewTask = () => {
+  const handlenewtask = () => {
     setPopupCard(!popupCard);
   };
 
