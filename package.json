@@ -8,7 +8,7 @@
     "build": "vite build",
     "format": "npx prettier . --write",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "lintcss": "yarn lint:js && yarn lint:css",
+    "lintcss": "yarn lint && yarn lint:css",
     "lint:css": "stylelint --fix **/*.css",
     "lint:css:fix": "npm run lint:css -- --fix",
     "preview": "vite preview",
@@ -25,9 +25,9 @@
       "yarn format",
       "yarn lint"
     ],
-    "*.css": [
+    "src/*.css": [
       "yarn format",
-      "yarn lint"
+      "yarn lintcss"
     ]
   },
   "dependencies": {

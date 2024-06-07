@@ -1,4 +1,4 @@
-export const logodark = () => {
+export const LogoDark = () => {
   return (
     <div className="header__logo _dark">
       <a href="" target="_self">
@@ -8,7 +8,7 @@ export const logodark = () => {
   );
 };
 
-export const logolight = () => {
+export const LogoLight = () => {
   return (
     <div className="header__logo _show _light">
       <a href="" target="_self">

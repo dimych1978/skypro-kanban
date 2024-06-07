@@ -13,13 +13,11 @@ function App() {
   const [cards, setCards] = useState(cardList);
   const [isVisible, setIsVisible] = useState('none');
   const [newTask, setNewTask] = useState();
-  useEffect(
-    () =>
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000),
-    [],
-  );
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   const onAddCard = () => {
     setCards([

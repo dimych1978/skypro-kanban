@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
 
-const calendar = () => {
+const Calendar = () => {
   const [value, setValue] = useState(format(new Date(), 'dd.MM.yy'));
-  const handlerchange = (e) => {
+  const handlerChange = (e) => {
     setValue(e.target.value);
   };
 

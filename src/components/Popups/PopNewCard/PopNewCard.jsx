@@ -3,11 +3,11 @@ import Calendar from '/src/components/Calendar/Calendar';
 
 const PopNewCard = ({ onAddCard, isVisible, onChange, onVisible }) => {
   const ref = useRef();
-  const handlechange = (e) => {
+  const handleChange = (e) => {
     onChange(e.target.value);
   };
 
-  const handlevisible = () => {
+  const handleVisible = () => {
     onVisible(!isVisible);
   };
 
