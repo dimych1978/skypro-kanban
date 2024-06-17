@@ -2,7 +2,6 @@ export const cardList = [
   {
     id: 1,
     theme: 'Web Design',
-    color: '_orange',
     title: 'Название задачи',
     date: '30.04.2024',
     status: 'Без статуса',
@@ -10,7 +9,6 @@ export const cardList = [
   {
     id: 2,
     theme: 'Copywriting',
-    color: '_purple',
     title: 'Название задачи',
     date: '12.04.2024',
     status: 'Без статуса',
@@ -18,7 +16,6 @@ export const cardList = [
   {
     id: 3,
     theme: 'Web Design',
-    color: '_orange',
     title: 'Название задачи',
     date: '30.06.2024',
     status: 'Без статуса',
@@ -26,7 +23,6 @@ export const cardList = [
   {
     id: 4,
     theme: 'Web Design',
-    color: '_orange',
     title: 'Название задачи',
     date: '30.05.2024',
     status: 'Нужно сделать',
@@ -34,7 +30,6 @@ export const cardList = [
   {
     id: 5,
     theme: 'Web Design',
-    color: '_orange',
     title: 'Название задачи',
     date: '23.03.2024',
     status: 'Тестирование',
@@ -42,7 +37,6 @@ export const cardList = [
   {
     id: 6,
     theme: 'Research',
-    color: '_green',
     title: 'Название задачи',
     date: '01.07.2024',
     status: 'В работе',
@@ -50,7 +44,6 @@ export const cardList = [
   {
     id: 7,
     theme: 'Copywriting',
-    color: '_purple',
     title: 'Название задачи',
     date: '01.07.2024',
     status: 'Готово',
@@ -58,7 +51,6 @@ export const cardList = [
   {
     id: 8,
     theme: 'Research',
-    color: '_green',
     title: 'Название задачи',
     date: '01.10.2024',
     status: 'Готово',
@@ -66,7 +58,6 @@ export const cardList = [
   {
     id: 9,
     theme: 'Copywriting',
-    color: '_purple',
     title: 'Название задачи',
     date: '11.11.2024',
     status: 'Готово',
@@ -74,7 +65,6 @@ export const cardList = [
   {
     id: 10,
     theme: 'Research',
-    color: '_green',
     title: 'Название задачи',
     date: '12.12.2024',
     status: 'В работе',
@@ -88,3 +78,13 @@ export const statusList = [
   'Тестирование',
   'Готово',
 ];
+
+export const topicStyles = {
+  'Web Design': { color: '#ff6d00', backgroundColor: '#ffe4c2' },
+  Research: { color: '#06b16e', backgroundColor: ' #b4fdd1' },
+  Copywriting: { color: '#9a48f1', backgroundColor: ' #e9d4ff' },
+};
+
+export const light = { bg: '#EAEEF6', text: 'red' };
+
+export const dark = { bg: '#151419', text: 'blue' };

@@ -1,6 +1,6 @@
 const PopUser = () => {
   return (
-    <div className="pop-exit" id="popExit">
+    <div className="pop-exit" id="popExit" style={{ display: 'none' }}>
       <div className="pop-exit__container">
         <div className="pop-exit__block">
           <div className="pop-exit__ttl">

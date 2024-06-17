@@ -2,7 +2,7 @@ import Calendar from '/src/components/Calendar/Calendar';
 
 const PopBrows = () => {
   return (
-    <div className="pop-browse" id="popBrowse">
+    <div className="pop-browse" id="popBrowse" style={{ display: 'none' }}>
       <div className="pop-browse__block">
         <div className="pop-browse__content">
           <div className="pop-browse__top-block">

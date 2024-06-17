@@ -1,17 +1,26 @@
 import { LogoDark, LogoLight } from './Logo';
 import Nav from './Nav';
+import * as S from './Header.styled';
+import { Container as SContainer } from '../Main.styled';
 
-const Header = ({ onVisible }) => {
+const Header = ({ onVisible, isLight, setIsLight }) => {
+  const handleTheme = () => {
+    setIsLight(!isLight);
+  };
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
+    <S.Header>
+      <SContainer>
+        <S.HeaderBlock>
           <LogoLight />
           <LogoDark />
-          <Nav onVisible={onVisible} />
-        </div>
-      </div>
-    </header>
+          <Nav
+            onVisible={onVisible}
+            isLight={isLight}
+            setIsLight={handleTheme}
+          />
+        </S.HeaderBlock>
+      </SContainer>
+    </S.Header>
   );
 };
 export default Header;
