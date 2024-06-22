@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { hover01, hover02 } from '/src/Common.styled';
+import { hover01, hover02 } from '../../Common.styled';
 
 export const Button = styled.button`
   width: 178px;
@@ -21,6 +21,7 @@ export const Button = styled.button`
     color: #fff;
   }
 `;
+
 export const Nav = styled.nav`
   display: flex;
   align-items: center;

@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import * as S from './CardItem.styled';
 
-const CardItem = ({ title, theme, date }) => {
+const CardItem = ({ title, theme, date, id }) => {
   return (
     <S.Item>
       <S.Card>
@@ -16,9 +17,9 @@ const CardItem = ({ title, theme, date }) => {
           </S.CardBtn>
         </S.Group>
         <S.Content>
-          <a href="" target="_blank">
+          <Link to={`/card/${id}`}>
             <S.Title>{title}</S.Title>
-          </a>
+          </Link>
           <S.Date>
             <svg
               xmlns="http://www.w3.org/2000/svg"

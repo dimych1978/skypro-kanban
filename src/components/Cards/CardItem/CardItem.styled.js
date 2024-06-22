@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { topicStyles } from '/src/data';
+import { Green, Orange, Purple } from '../../../Common.styled';
 
 export const Item = styled.div`
   padding: 5px;
@@ -60,8 +60,10 @@ export const Theme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  color: ${(props) => topicStyles[props.$theme].color};
-  background-color: ${(props) => topicStyles[props.$theme].backgroundColor};
+
+  ${(props) => props.$theme === 'Web Design' && Orange}
+  ${(props) => props.$theme === 'Research' && Green}
+  ${(props) => props.$theme === 'Copywriting' && Purple}
 
   p {
     font-size: 10px;
