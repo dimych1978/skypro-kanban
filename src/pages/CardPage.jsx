@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { cardList, statusList } from '../data';
 import { Calendar } from '../components/Calendar/Calendar.styled';
 import * as S from './CardPage.styled';
@@ -21,7 +21,7 @@ const CardPage = () => {
             <S.Subttl>Статус</S.Subttl>
             <S.StatusThemes>
               {statusList.map((status) => (
-                <S.StatusTheme key={status} $hidden={card.status === status}>
+                <S.StatusTheme key={status} $visible={card.status === status}>
                   <p>{status}</p>
                 </S.StatusTheme>
               ))}
@@ -42,25 +42,27 @@ const CardPage = () => {
             <Calendar />
           </S.Wrap>
           <S.ThemeDown>
-            <p className="categories__p subttl">Категория</p>
-            <div className="categories__theme _orange _active-category">
-              <p className="_orange">Web Design</p>
-            </div>
+            <S.Subttl>Категория</S.Subttl>
+            <S.ThemeTop $theme={card.theme}>
+              <p>{card.theme}</p>
+            </S.ThemeTop>
           </S.ThemeDown>
-          <div className="pop-browse__btn-browse ">
-            <div className="btn-group">
-              <button className="btn-browse__edit _btn-bor _hover03">
-                <a href="#">Редактировать задачу</a>
-              </button>
-              <button className="btn-browse__delete _btn-bor _hover03">
-                <a href="#">Удалить задачу</a>
-              </button>
-            </div>
-            <button className="btn-browse__close _btn-bg _hover01">
-              <a href="#">Закрыть</a>
-            </button>
-          </div>
-          <div className="pop-browse__btn-edit _hide">
+          <S.Btn>
+            <S.BtnGroup>
+              <S.Button>
+                <Link to="#">Редактировать задачу</Link>
+              </S.Button>
+              <S.Button>
+                <Link to="#">Удалить задачу</Link>
+              </S.Button>
+            </S.BtnGroup>
+            <S.BtnClose
+            // className="btn-browse__close _btn-bg _hover01"
+            >
+              <Link to="#">Закрыть</Link>
+            </S.BtnClose>
+          </S.Btn>
+          {/* <div className="pop-browse__btn-edit _hide">
             <div className="btn-group">
               <button className="btn-edit__edit _btn-bg _hover01">
                 <a href="#">Сохранить</a>
@@ -78,7 +80,7 @@ const CardPage = () => {
             <button className="btn-edit__close _btn-bg _hover01">
               <a href="#">Закрыть</a>
             </button>
-          </div>
+          </div> */}
         </S.Content>
       </S.Block>
     </S.PopBrows>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   ActiveCategory,
   Gray,
@@ -6,6 +6,8 @@ import {
   Hide,
   Orange,
   Purple,
+  hover01,
+  hover03,
 } from '../Common.styled';
 
 export const PopBrows = styled.div`
@@ -118,7 +120,7 @@ export const StatusTheme = styled.div`
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 24px;
 
-  ${({ $hidden }) => ($hidden ? Gray : Hide)}
+  ${({ $visible }) => ($visible ? Gray : Hide)}
 
   p {
     font-size: 14px;
@@ -172,7 +174,48 @@ export const FormArea = styled.textarea`
   }
 `;
 
-export const ThemeDown = styled.div`
+export const ThemeDown = styled(CategoriesTheme)`
   display: none;
   margin-bottom: 20px;
+`;
+
+export const Btn = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+export const BtnGroup = styled(Btn)`
+  margin-right: 8px;
+`;
+
+const BtnBg = css`
+  color: #fff;
+
+  background: #565eef;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  a {
+    color: #fff;
+  }
+`;
+
+export const Button = styled.button`
+  color: #565eef;
+  ${hover03}
+  ${BtnBg}
+`;
+
+export const BtnClose = styled.button`
+  cursor: pointer;
+
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  color: #94a6be;
+  ${hover01}
+  ${BtnBg}
 `;
