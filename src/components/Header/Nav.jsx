@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 import * as S from './Nav.styled';
+import { Link } from 'react-router-dom';
 
 const PopupUser = ({ isLight, setIsLight }) => {
   const handleTheme = () => {
@@ -22,7 +23,7 @@ const PopupUser = ({ isLight, setIsLight }) => {
         />
       </div>
       <button type="button" className="_hover03">
-        <a href="#popExit">Выйти</a>
+        <Link to="/exit">Выйти</Link>
       </button>
     </div>
   );

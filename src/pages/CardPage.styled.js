@@ -16,8 +16,6 @@ export const PopBrows = styled.div`
   top: 0;
   left: 0;
 
-  /* display: none; */
-
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -190,6 +188,20 @@ export const BtnGroup = styled(Btn)`
   margin-right: 8px;
 `;
 
+const BtnBor = css`
+  color: #565eef;
+
+  background: transparent;
+  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border-radius: 4px;
+  outline: none;
+
+  a {
+    color: #565eef;
+    text-decoration: none;
+  }
+`;
+
 const BtnBg = css`
   color: #fff;
 
@@ -197,8 +209,15 @@ const BtnBg = css`
   border: none;
   border-radius: 4px;
   outline: none;
+
+  margin-right: 8px;
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+
   a {
     color: #fff;
+    text-decoration: none;
   }
 `;
 
@@ -206,15 +225,10 @@ export const Button = styled.button`
   color: #565eef;
   ${hover03}
   ${BtnBg}
+  ${BtnBor}
 `;
 
 export const BtnClose = styled.button`
-  cursor: pointer;
-
-  position: absolute;
-  top: 20px;
-  right: 30px;
-
   color: #94a6be;
   ${hover01}
   ${BtnBg}

@@ -21,7 +21,7 @@ export const hover03 = css`
     color: #fff;
     background-color: #33399b;
   }
-  a {
+  &:hover a {
     color: #fff;
   }
 `;

@@ -50,6 +50,7 @@ export const NavAction = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #94a6be;
 
   width: 18px;
   height: 25px;
@@ -98,6 +99,7 @@ export const CalendarCell = styled.div`
 
   font-size: 10px;
   line-height: 1;
+  color: #94a6be;
   letter-spacing: -0.2px;
 
   border-radius: 50%;

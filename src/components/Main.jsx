@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import Columns from './Columns/Columns';
 import * as S from './Main.styled';
 
@@ -7,6 +8,7 @@ const Main = ({ cards }) => {
       <S.Container>
         <S.MainBlock>
           <Columns cards={cards} />
+          <Outlet />
         </S.MainBlock>
       </S.Container>
     </S.Main>
