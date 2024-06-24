@@ -7,41 +7,56 @@ import {
   LabelForm,
   Subttl,
 } from './CardPage.styled';
-import { categoriesList } from '../data';
+import { cardList, categoriesList } from '../data';
+import { useState } from 'react';
+import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
-const NewCard = ({ onAddCard, isVisible }) => {
+const NewCard = () => {
   // const ref = useRef();
-  // const handleChange = (e) => {
-  //   console.log(onChange);
-  //   onChange(e.target.value);
-  // };
+  const [cards, setCards] = useState(cardList);
+  const [newTask, setNewTask] = useState();
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setNewTask(e.target.value);
+  };
+  const onAddCard = () => {
+    setCards([
+      ...cards,
+      {
+        id: cards.length + 1,
+        theme: 'Research',
+        color: '_green',
+        title: newTask,
+        date: format(new Date(), 'dd.MM.yy'),
+        status: 'Без статуса',
+      },
+    ]);
+    navigate('/');
+    console.log(cards);
+  };
 
   return (
-    <S.NewCard id="popNewCard" style={{ display: isVisible }}>
+    <S.NewCard id="popNewCard">
       <S.Container>
         <S.Block>
           <S.Content>
             <S.Ttl>Создание задачи</S.Ttl>
-            <S.StyledLink
-              to={'/'}
-              // className="pop-new-card__close"
-              // onClick={handleVisible}
-            >
-              &#10006;
-            </S.StyledLink>
+            <S.StyledLink to={'/'}>&#10006;</S.StyledLink>
             <S.Wrap>
               <S.Form id="formNewCard" action="#">
                 <S.FormBlock>
                   <LabelForm htmlFor="formTitle">Название задачи</LabelForm>
                   <S.FormInput
                     // ref={ref}
-                    // className="form-new__input"
                     type="text"
                     name="name"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
-                    // onChange={handleChange}
+                    onChange={handleChange}
                   />
                 </S.FormBlock>
                 <S.FormBlock>
@@ -64,17 +79,6 @@ const NewCard = ({ onAddCard, isVisible }) => {
                   {theme}
                 </CategoriesTheme>
               ))}
-              {/* {/* <div className="categories__themes">
-                <div className="categories__theme _orange _active-category"> */}
-              {/* <p className="_orange">Web Design</p> */}
-              {/* </div>
-                <div className="categories__theme _green"> */}
-              {/* <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>*/}
             </CategoriesTheme>
             <S.BtnCreate id="btnCreate" onClick={onAddCard}>
               Создать задачу
