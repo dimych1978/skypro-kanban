@@ -81,6 +81,6 @@ export const statusList = [
 
 export const categoriesList = ['Web Design', 'Research', 'Copywriting'];
 
-export const light = { bg: '#EAEEF6', text: 'red' };
+export const light = { bg: '#EAEEF6', text: '#000' };
 
-export const dark = { bg: '#151419', text: 'blue' };
+export const dark = { bg: '#151419', text: '#fff' };

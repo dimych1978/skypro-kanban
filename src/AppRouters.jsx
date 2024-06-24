@@ -5,12 +5,14 @@ import Registry from './pages/Registry';
 import CardPage from './pages/CardPage';
 import Exit from './pages/Exit';
 import Home from './pages/Home';
+import NewCard from './pages/NewCard';
 
 const appRouters = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRY: '/registry',
   CARD: '/card/:cardId',
+  NEWCARD: '/newcard',
   EXIT: '/exit',
 };
 
@@ -26,6 +28,7 @@ const AppRouters = () => {
         <Route element={<PrivateRoute isAuth={isAuth} />}>
           <Route path={appRouters.HOME} element={<Home />}></Route>
           <Route path={appRouters.CARD} element={<CardPage />}></Route>
+          <Route path={appRouters.NEWCARD} element={<NewCard />}></Route>
           <Route path={appRouters.EXIT} element={<Exit />}></Route>
         </Route>
         <Route path={appRouters.LOGIN} element={<Login />}></Route>

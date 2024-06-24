@@ -1,21 +1,22 @@
+import { Link } from 'react-router-dom';
 import * as S from './Logo.styled';
 
 export const LogoDark = () => {
   return (
-    <div className="header__logo _dark">
-      <a href="" target="_self">
+    <S.LogoDark>
+      <Link to={'/'} target="_self">
         <img src="images/logo_dark.png" alt="logo" />
-      </a>
-    </div>
+      </Link>
+    </S.LogoDark>
   );
 };
 
 export const LogoLight = () => {
   return (
     <S.LogoLight>
-      <a href="" target="_self">
+      <Link to={'/'} target="_self">
         <img src="/img/logo.png" alt="logo" />
-      </a>
+      </Link>
     </S.LogoLight>
   );
 };

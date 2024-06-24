@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Wrapper } from '../App.styled';
+import { Wrapper } from './Home.styled';
 import * as S from './Login.styled';
 
 const Registry = () => {
