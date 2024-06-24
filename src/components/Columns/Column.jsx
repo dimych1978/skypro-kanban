@@ -1,12 +1,13 @@
 import CardItem from '/src/components/Cards/CardItem/CardItem';
+import * as S from './Column.style';
 
 const Column = ({ title, cardList }) => {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <S.MainColumn>
+      <S.ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </S.ColumnTitle>
+      <S.Cards>
         {cardList.map((card) => (
           <CardItem
             key={card.id}
@@ -16,8 +17,8 @@ const Column = ({ title, cardList }) => {
             date={card.date}
           />
         ))}
-      </div>
-    </div>
+      </S.Cards>
+    </S.MainColumn>
   );
 };
 

@@ -5,11 +5,15 @@ import Main from './components/Main';
 import PopBrows from './components/Popups/PopBrows/PopBrows';
 import PopNewCard from './components/Popups/PopNewCard/PopNewCard';
 import PopUser from './components/Popups/PopUser/PopUser';
-import { cardList } from './data';
+import { cardList, dark, light } from './data';
 import { format } from 'date-fns';
+import { Wrapper } from './App.styled';
+import { GlobalStyles } from './Global.styled';
+import { ThemeProvider } from 'styled-components';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLight, setIsLight] = useState(true);
   const [cards, setCards] = useState(cardList);
   const [isVisible, setIsVisible] = useState('none');
   const [newTask, setNewTask] = useState();
@@ -43,28 +47,35 @@ function App() {
   };
 
   return (
-    <div className="wrapper">
-      {isLoading ? (
-        <h1 style={{ textAlign: 'center', marginTop: '50vh' }}>
-          ...Данные загружаются
-        </h1>
-      ) : (
-        <>
-          {/* <!-- pop-up start--> */}
-          <PopUser />
-          <PopNewCard
-            onAddCard={onAddCard}
-            isVisible={isVisible}
-            onChange={handleChange}
-            onVisible={handleVisible}
-          />
-          <PopBrows />
-          {/* <!-- pop-up end--> */}
-          <Header onVisible={handleVisible} />
-          <Main cards={cards} />
-        </>
-      )}
-    </div>
+    <ThemeProvider theme={isLight ? light : dark}>
+      <GlobalStyles />
+      <Wrapper>
+        {isLoading ? (
+          <h1 style={{ textAlign: 'center', marginTop: '50vh' }}>
+            ...Данные загружаются
+          </h1>
+        ) : (
+          <>
+            {/* <!-- pop-up start--> */}
+            <PopUser />
+            <PopNewCard
+              onAddCard={onAddCard}
+              isVisible={isVisible}
+              onChange={handleChange}
+              onVisible={handleVisible}
+            />
+            <PopBrows />
+            {/* <!-- pop-up end--> */}
+            <Header
+              onVisible={handleVisible}
+              isLight={isLight}
+              setIsLight={setIsLight}
+            />
+            <Main cards={cards} />
+          </>
+        )}
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 

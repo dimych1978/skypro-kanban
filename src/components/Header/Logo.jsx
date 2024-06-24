@@ -1,3 +1,5 @@
+import * as S from './Logo.styled';
+
 export const LogoDark = () => {
   return (
     <div className="header__logo _dark">
@@ -10,10 +12,10 @@ export const LogoDark = () => {
 
 export const LogoLight = () => {
   return (
-    <div className="header__logo _show _light">
+    <S.LogoLight>
       <a href="" target="_self">
         <img src="/img/logo.png" alt="logo" />
       </a>
-    </div>
+    </S.LogoLight>
   );
 };

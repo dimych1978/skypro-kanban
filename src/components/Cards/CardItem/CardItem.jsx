@@ -1,23 +1,25 @@
-const CardItem = ({ title, color, theme, date }) => {
+import * as S from './CardItem.styled';
+
+const CardItem = ({ title, theme, date }) => {
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <div className={`card__theme ${color}`}>
-            <p className={color}>{theme}</p>
-          </div>
+    <S.Item>
+      <S.Card>
+        <S.Group>
+          <S.Theme $theme={theme}>
+            <p>{theme}</p>
+          </S.Theme>
           <a href="#popBrowse" target="_self" />
-          <div className="card__btn">
+          <S.CardBtn>
             <div></div>
             <div></div>
             <div></div>
-          </div>
-        </div>
-        <div className="card__content">
+          </S.CardBtn>
+        </S.Group>
+        <S.Content>
           <a href="" target="_blank">
-            <h3 className="card__title">{title}</h3>
+            <S.Title>{title}</S.Title>
           </a>
-          <div className="card__date">
+          <S.Date>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -47,10 +49,10 @@ const CardItem = ({ title, color, theme, date }) => {
               </defs>
             </svg>
             <p>{date}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </S.Date>
+        </S.Content>
+      </S.Card>
+    </S.Item>
   );
 };
 
