@@ -22,6 +22,18 @@ export const PopBrows = styled.div`
   min-height: 100vh;
 `;
 
+export const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+`;
+
 export const Block = styled.div`
   position: relative;
 

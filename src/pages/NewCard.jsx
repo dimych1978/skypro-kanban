@@ -7,37 +7,23 @@ import {
   LabelForm,
   Subttl,
 } from './CardPage.styled';
-import { cardList, categoriesList } from '../data';
+import { categoriesList } from '../data';
 import { useState } from 'react';
-import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
-const NewCard = () => {
+const NewCard = ({ addCards }) => {
   // const ref = useRef();
-  const [cards, setCards] = useState(cardList);
-  const [newTask, setNewTask] = useState();
-
+  const [newTask, setNewTask] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setNewTask(e.target.value);
   };
-  const onAddCard = () => {
-    setCards([
-      ...cards,
-      {
-        id: cards.length + 1,
-        theme: 'Research',
-        color: '_green',
-        title: newTask,
-        date: format(new Date(), 'dd.MM.yy'),
-        status: 'Без статуса',
-      },
-    ]);
-    navigate('/');
-    console.log(cards);
-  };
 
+  const handleCreate = () => {
+    addCards(newTask);
+    navigate('/');
+  };
   return (
     <S.NewCard id="popNewCard">
       <S.Container>
@@ -80,7 +66,7 @@ const NewCard = () => {
                 </CategoriesTheme>
               ))}
             </CategoriesTheme>
-            <S.BtnCreate id="btnCreate" onClick={onAddCard}>
+            <S.BtnCreate id="btnCreate" onClick={handleCreate}>
               Создать задачу
             </S.BtnCreate>
           </S.Content>

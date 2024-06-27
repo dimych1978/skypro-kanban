@@ -32,7 +32,6 @@ const Nav = ({ isLight, setIsLight }) => {
   const handleUser = () => {
     setPopupUser(!popupUser);
   };
-
   const handleTheme = () => {
     setIsLight(isLight);
   };

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header/Header';
 import Main from '../components/Main';
-import { cardList, dark, light } from '../data';
+import { dark, light } from '../data';
 import { Wrapper } from './Home.styled';
 import { GlobalStyles } from '../Global.styled';
 import { ThemeProvider } from 'styled-components';
+import { Outlet } from 'react-router-dom';
 
-function Home() {
+function Home({ cards }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLight, setIsLight] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -26,7 +28,8 @@ function Home() {
         ) : (
           <>
             <Header isLight={isLight} setIsLight={setIsLight} />
-            <Main cards={cardList} />
+            <Main cards={cards} />
+            <Outlet />
           </>
         )}
       </Wrapper>
