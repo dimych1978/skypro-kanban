@@ -21,7 +21,7 @@ const appRouters = {
 };
 
 const AppRouters = () => {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   const [cards, setCards] = useState(cardList);
 
   const onAddCard = (newTask) => {
@@ -54,7 +54,10 @@ const AppRouters = () => {
             ></Route>
           </Route>
         </Route>
-        <Route path={appRouters.LOGIN} element={<Login />}></Route>
+        <Route
+          path={appRouters.LOGIN}
+          element={<Login handleAuth={setIsAuth} />}
+        ></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>
       </Routes>
