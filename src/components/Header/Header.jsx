@@ -3,7 +3,7 @@ import Nav from './Nav';
 import * as S from './Header.styled';
 import { Container as SContainer } from '../Main.styled';
 
-const Header = ({ onVisible, isLight, setIsLight }) => {
+const Header = ({ isLight, setIsLight }) => {
   const handleTheme = () => {
     setIsLight(!isLight);
   };
@@ -13,11 +13,7 @@ const Header = ({ onVisible, isLight, setIsLight }) => {
         <S.HeaderBlock>
           <LogoLight />
           <LogoDark />
-          <Nav
-            onVisible={onVisible}
-            isLight={isLight}
-            setIsLight={handleTheme}
-          />
+          <Nav isLight={isLight} setIsLight={handleTheme} />
         </S.HeaderBlock>
       </SContainer>
     </S.Header>

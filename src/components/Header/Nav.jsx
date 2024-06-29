@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import PopNewCard from '../Popups/PopNewCard/PopNewCard';
 import * as S from './Nav.styled';
+import { Link } from 'react-router-dom';
 
 const PopupUser = ({ isLight, setIsLight }) => {
   const handleTheme = () => {
@@ -8,11 +8,10 @@ const PopupUser = ({ isLight, setIsLight }) => {
   };
 
   return (
-    <div className="header__pop-user-set pop-user-set" id="user-set-target">
-      {/* <!-- <a href="">x</a> --> */}
-      <p className="pop-user-set__name">Ivan Ivanov</p>
-      <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-      <div className="pop-user-set__theme">
+    <S.PopUserHeader id="user-set-target">
+      <S.PopUserName>Ivan Ivanov</S.PopUserName>
+      <S.PopUserMail>ivan.ivanov@gmail.com</S.PopUserMail>
+      <S.PopUserTheme>
         <p>Темная тема</p>
         <input
           type="checkbox"
@@ -20,35 +19,28 @@ const PopupUser = ({ isLight, setIsLight }) => {
           name="checkbox"
           onClick={handleTheme}
         />
-      </div>
-      <button type="button" className="_hover03">
-        <a href="#popExit">Выйти</a>
-      </button>
-    </div>
+      </S.PopUserTheme>
+      <S.BntExit>
+        <Link to="/exit">Выйти</Link>
+      </S.BntExit>
+    </S.PopUserHeader>
   );
 };
 
-const Nav = ({ onVisible, isLight, setIsLight }) => {
+const Nav = ({ isLight, setIsLight }) => {
   const [popupUser, setPopupUser] = useState(false);
-  const [popupCard, setPopupCard] = useState(false);
   const handleUser = () => {
     setPopupUser(!popupUser);
   };
-
   const handleTheme = () => {
     setIsLight(isLight);
   };
 
-  const handleNewTask = () => {
-    setPopupCard(!popupCard);
-  };
-
   return (
     <S.Nav>
-      <S.Button id="btnMainNew" onClick={onVisible}>
-        <a onClick={handleNewTask}>Создать новую задачу</a>
+      <S.Button id="btnMainNew">
+        <Link to={'/newcard'}>Создать новую задачу</Link>
       </S.Button>
-      {popupCard && <PopNewCard />}
       <S.HeaderUser onClick={handleUser}>Ivan Ivanov</S.HeaderUser>
       {popupUser && <PopupUser isLight={isLight} setIsLight={handleTheme} />}
     </S.Nav>

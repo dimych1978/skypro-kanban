@@ -79,12 +79,8 @@ export const statusList = [
   'Готово',
 ];
 
-export const topicStyles = {
-  'Web Design': { color: '#ff6d00', backgroundColor: '#ffe4c2' },
-  Research: { color: '#06b16e', backgroundColor: ' #b4fdd1' },
-  Copywriting: { color: '#9a48f1', backgroundColor: ' #e9d4ff' },
-};
+export const categoriesList = ['Web Design', 'Research', 'Copywriting'];
 
-export const light = { bg: '#EAEEF6', text: 'red' };
+export const light = { bg: '#EAEEF6', text: '#000' };
 
-export const dark = { bg: '#151419', text: 'blue' };
+export const dark = { bg: '#151419', text: '#fff' };

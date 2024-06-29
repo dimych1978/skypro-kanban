@@ -5,3 +5,7 @@ export const LogoLight = styled.div`
     width: 85px;
   }
 `;
+
+export const LogoDark = styled.div`
+  display: none;
+`;

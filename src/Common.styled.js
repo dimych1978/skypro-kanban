@@ -21,31 +21,35 @@ export const hover03 = css`
     color: #fff;
     background-color: #33399b;
   }
-  a {
+  &:hover a {
     color: #fff;
   }
 `;
 
-export const orange = css`
+export const Orange = css`
   color: #ff6d00;
   background-color: #ffe4c2;
 `;
 
-export const green = css`
+export const Green = css`
   color: #06b16e;
   background-color: #b4fdd1;
 `;
 
-export const purple = css`
+export const Purple = css`
   color: #9a48f1;
   background-color: #e9d4ff;
 `;
 
-export const gray = css`
+export const Gray = css`
   color: #fff;
   background: #94a6be;
 `;
 
-export const activeCategory = css`
+export const ActiveCategory = css`
   opacity: 1 !important;
+`;
+
+export const Hide = css`
+  display: none;
 `;

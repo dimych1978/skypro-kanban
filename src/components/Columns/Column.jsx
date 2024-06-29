@@ -15,6 +15,7 @@ const Column = ({ title, cardList }) => {
             title={card.title}
             color={card.color}
             date={card.date}
+            id={card.id}
           />
         ))}
       </S.Cards>
