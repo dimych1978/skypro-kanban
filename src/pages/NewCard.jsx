@@ -10,19 +10,39 @@ import {
 import { categoriesList } from '../data';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLoading } from '../hooks/useLoading';
+import { Spinner } from '../components/Spinner';
+import IfError from '../components/IfError/IfError';
 
 const NewCard = ({ addCards }) => {
-  // const ref = useRef();
-  const [newTask, setNewTask] = useState('');
   const navigate = useNavigate();
 
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useLoading();
+
+  const [newTask, setNewTask] = useState('');
+  const [topic, setTopic] = useState('Web Design');
+
   const handleChange = (e) => {
+    setIsError(null);
     setNewTask(e.target.value);
   };
 
-  const handleCreate = () => {
-    addCards(newTask);
-    navigate('/');
+  const changeTheme = (theme) => {
+    setTopic(theme);
+    console.log(topic);
+  };
+
+  const handleCreate = async () => {
+    try {
+      setIsLoading(true);
+      await addCards(newTask, topic);
+      setIsLoading(false);
+      navigate('/');
+    } catch (error) {
+      setIsError(error.message);
+      console.warn(isError, error.message);
+    }
   };
   return (
     <S.NewCard id="popNewCard">
@@ -36,7 +56,6 @@ const NewCard = ({ addCards }) => {
                 <S.FormBlock>
                   <LabelForm htmlFor="formTitle">Название задачи</LabelForm>
                   <S.FormInput
-                    // ref={ref}
                     type="text"
                     name="name"
                     id="formTitle"
@@ -58,17 +77,28 @@ const NewCard = ({ addCards }) => {
               </S.Form>
               <Calendar />
             </S.Wrap>
-            <CategoriesTheme>
+            <S.CategoriesTheme>
               <Subttl>Категория</Subttl>
-              {categoriesList.map((theme) => (
-                <CategoriesTheme key={theme} $theme={theme}>
-                  {theme}
-                </CategoriesTheme>
-              ))}
-            </CategoriesTheme>
-            <S.BtnCreate id="btnCreate" onClick={handleCreate}>
-              Создать задачу
-            </S.BtnCreate>
+              {categoriesList.map((theme) => {
+                return (
+                  <CategoriesTheme
+                    key={theme}
+                    $theme={theme}
+                    $active={theme === topic}
+                    onClick={() => changeTheme(theme)}
+                  >
+                    <p>{theme}</p>
+                  </CategoriesTheme>
+                );
+              })}
+            </S.CategoriesTheme>
+            <div style={{ display: 'flex', float: 'right' }}>
+              {isError && <IfError error={isError} />}
+              <S.BtnCreate id="btnCreate" onClick={handleCreate}>
+                Создать задачу
+              </S.BtnCreate>
+              <Spinner display={isLoading ? 'inline' : 'none'} />
+            </div>
           </S.Content>
         </S.Block>
       </S.Container>

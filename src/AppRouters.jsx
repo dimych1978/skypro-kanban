@@ -7,9 +7,11 @@ import Exit from './pages/Exit';
 import Home from './pages/Home';
 import NewCard from './pages/NewCard';
 import { PrivateRoute } from './PrivateRote';
-import { useState } from 'react';
-import { cardList } from './data';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns/format';
+import { addTask, getTasks } from './api/api';
+
+const token = localStorage.getItem('token') || null;
 
 const appRouters = {
   HOME: '/',
@@ -21,42 +23,69 @@ const appRouters = {
 };
 
 const AppRouters = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [cards, setCards] = useState(cardList);
+  const [cards, setCards] = useState('');
+  const [isError, setIsError] = useState(null);
 
-  const onAddCard = (newTask) => {
-    setCards([
-      ...cards,
-      {
-        id: cards.length + 1,
-        theme: 'Research',
-        color: '_green',
-        title: newTask,
-        date: format(new Date(), 'dd.MM.yy'),
-        status: 'Без статуса',
-      },
-    ]);
+  useEffect(() => {
+    token &&
+      getTasks(token)
+        .then((data) => setCards(data.tasks))
+        .catch((err) => {
+          setIsError('Не удалось загрузить данные, попробуйте позже');
+          console.log(err.message);
+        });
+  }, []);
+
+  const onAddCard = async (taskName, topic) => {
+    const newTask = {
+      topic: topic,
+      title: taskName,
+      date: format(new Date(), 'MM.dd.yyyy'),
+      status: 'Без статуса',
+      description: 'Подробное описание задачи',
+    };
+    await addTask(token, newTask);
+    getTasks(token).then((data) => setCards(data.tasks));
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute isAuth={isAuth} />}>
-          <Route path={appRouters.HOME} element={<Home cards={cards} />}>
-            <Route path={appRouters.CARD} element={<CardPage />}></Route>
+        <Route element={<PrivateRoute token={token} />}>
+          <Route
+            path={appRouters.HOME}
+            element={<Home cards={cards} isError={isError} />}
+          >
+            {/* {isError && (
+              <Route element={} />
+            )} */}
+            <Route
+              path={appRouters.CARD}
+              element={
+                <CardPage cardList={cards} token={token} setCards={setCards} />
+              }
+            ></Route>
             <Route
               path={appRouters.NEWCARD}
               element={<NewCard addCards={onAddCard} />}
             ></Route>
             <Route
               path={appRouters.EXIT}
-              element={<Exit handleAuth={setIsAuth} />}
+              element={
+                <Exit
+                // setToken={setToken}
+                />
+              }
             ></Route>
           </Route>
         </Route>
         <Route
           path={appRouters.LOGIN}
-          element={<Login handleAuth={setIsAuth} />}
+          element={
+            <Login
+            // setToken={setToken}
+            />
+          }
         ></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>

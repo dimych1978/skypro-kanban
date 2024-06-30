@@ -94,6 +94,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.div`
+  cursor: pointer;
   width: 100%;
   height: 30px;
   background-color: #565eef;
