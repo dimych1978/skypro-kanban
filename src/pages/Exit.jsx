@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import * as S from './Exit.styled';
 
-const Exit = ({ handleAuth }) => {
-  // const handleAuth = () => {
-  //   isAuth(false);
-  // };
+const Exit = () => {
+  const handleAuth = () => {
+    localStorage.clear();
+  };
   return (
     <S.Exit id="popExit">
       <S.Container>
@@ -12,7 +12,7 @@ const Exit = ({ handleAuth }) => {
           <S.Ttl>Выйти из аккаунта?</S.Ttl>
           <form id="formExit" action="#">
             <S.Group>
-              <S.BtnYes id="exitYes" onClick={() => handleAuth(false)}>
+              <S.BtnYes id="exitYes" onClick={handleAuth}>
                 <Link to="/login">Да, выйти</Link>
               </S.BtnYes>
               <S.BtnNo id="exitNo">

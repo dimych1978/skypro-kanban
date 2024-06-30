@@ -10,12 +10,12 @@ const Column = ({ title, cardList }) => {
       <S.Cards>
         {cardList.map((card) => (
           <CardItem
-            key={card.id}
-            theme={card.theme}
+            key={card._id}
+            topic={card.topic}
             title={card.title}
             color={card.color}
             date={card.date}
-            id={card.id}
+            id={card._id}
           />
         ))}
       </S.Cards>

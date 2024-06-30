@@ -112,6 +112,10 @@ export const FormInput = styled.input`
   }
 `;
 
+export const CategoriesTheme = styled.div`
+  margin-bottom: 20px;
+`;
+
 export const BtnCreate = styled.button`
   float: right;
 
