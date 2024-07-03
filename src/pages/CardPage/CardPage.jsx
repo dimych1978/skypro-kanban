@@ -1,10 +1,10 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { statusList } from '../data';
+import { statusList } from '../../data';
 import Calendar from '/src/components/Calendar/Calendar';
 import * as S from './CardPage.styled';
-import { deleteTask, getTasks } from '../api/api';
-import { useLoading } from '../hooks/useLoading';
-import { Spinner } from '../components/Spinner';
+import { deleteTask, getTasks } from '../../api/api';
+import { useLoading } from '../../hooks/useLoading';
+import { Spinner } from '../../components/Spinner';
 
 const CardPage = ({ cardList, token, setCards }) => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const CardPage = ({ cardList, token, setCards }) => {
           <S.Content>
             <S.TopBlock>
               <S.Ttl>Название задачи {cardId}</S.Ttl>
-              <S.ThemeTop $theme={card.topic}>
+              <S.ThemeTop $theme={card.topic} $active="active">
                 <p>{card.topic}</p>
               </S.ThemeTop>
             </S.TopBlock>

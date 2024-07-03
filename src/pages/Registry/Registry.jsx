@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Wrapper } from './Home.styled';
-import * as S from './Login.styled';
-import { GlobalStyles } from '../Global.styled';
-import { registryUser } from '../api/api';
+import { Wrapper } from '../Home/Home.styled';
+import * as S from '../Login/Login.styled';
+import { GlobalStyles } from '/src/Global.styled';
+import { registryUser } from '/src/api/api';
 import { useState } from 'react';
-import IfError from '../components/IfError/IfError';
-import { useLoading } from '../hooks/useLoading';
-import { Spinner } from '../components/Spinner';
+import IfError from '/src/components/IfError/IfError';
+import { useLoading } from '/src/hooks/useLoading';
+import { Spinner } from '/src/components/Spinner';
 
 const Registry = () => {
   const navigate = useNavigate();

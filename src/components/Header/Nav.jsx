@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import * as S from './Nav.styled';
 import { Link } from 'react-router-dom';
+import { user } from '../../data';
 
 const PopupUser = ({ isLight, setIsLight }) => {
   const handleTheme = () => {
@@ -9,8 +10,8 @@ const PopupUser = ({ isLight, setIsLight }) => {
 
   return (
     <S.PopUserHeader id="user-set-target">
-      <S.PopUserName>Ivan Ivanov</S.PopUserName>
-      <S.PopUserMail>ivan.ivanov@gmail.com</S.PopUserMail>
+      <S.PopUserName>{user.name}</S.PopUserName>
+      <S.PopUserMail>{user.login}</S.PopUserMail>
       <S.PopUserTheme>
         <p>Темная тема</p>
         <input
@@ -41,7 +42,7 @@ const Nav = ({ isLight, setIsLight }) => {
       <S.Button id="btnMainNew">
         <Link to={'/newcard'}>Создать новую задачу</Link>
       </S.Button>
-      <S.HeaderUser onClick={handleUser}>Ivan Ivanov</S.HeaderUser>
+      <S.HeaderUser onClick={handleUser}>{user.name}</S.HeaderUser>
       {popupUser && <PopupUser isLight={isLight} setIsLight={handleTheme} />}
     </S.Nav>
   );

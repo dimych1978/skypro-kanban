@@ -81,14 +81,14 @@ const Calendar = () => {
         </S.CalendarContent>
 
         <input type="hidden" id="datepick_value" value="08.09.2023" />
-        <div className="calendar__period">
-          <p className="calendar__p date-end">
-            Срок исполнения:{' '}
-            <span className="date-control">
-              <input value={value} onChange={handlerChange} />
-            </span>
+        <S.CalendarPeriod>
+          <p>
+            Срок исполнения:
+            <S.CalendarDateControl value={value} onChange={handlerChange}>
+              {value}
+            </S.CalendarDateControl>
           </p>
-        </div>
+        </S.CalendarPeriod>
         {/* </div> */}
       </S.CalendarBlock>
     </S.Calendar>

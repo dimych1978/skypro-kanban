@@ -1,14 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Wrapper } from './Home.styled';
+import { Wrapper } from '../Home/Home.styled';
 import * as S from './Login.styled';
-import { GlobalStyles } from '../Global.styled';
+import { GlobalStyles } from '../../Global.styled';
 import { useState } from 'react';
-import IfError from '../components/IfError/IfError';
-import { loginUser } from '../api/api';
-import { useLoading } from '../hooks/useLoading';
-import { Spinner } from '../components/Spinner';
+import IfError from '../../components/IfError/IfError';
+import { loginUser } from '../../api/api';
+import { useLoading } from '../../hooks/useLoading';
+import { Spinner } from '../../components/Spinner';
 
-const Login = () => {
+const Login = ({ setToken }) => {
   const navigate = useNavigate();
 
   const [isError, setIsError] = useState(null);
@@ -27,7 +27,8 @@ const Login = () => {
 
     try {
       const response = await loginUser(user);
-      localStorage.setItem('token', response.user.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      setToken(response.user.token);
       navigate('/');
     } catch (error) {
       console.warn(error);

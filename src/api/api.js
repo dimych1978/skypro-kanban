@@ -4,11 +4,9 @@ export const registryUser = async (user) => {
     body: JSON.stringify(user),
   });
 
-  if (response.status === 400)
-    throw new Error('Пользователь с таким именем уже существует');
-  if (!response.ok) throw new Error('Ошибка сервера');
-
   const data = await response.json();
+  if (!response.ok) throw new Error(Object.values(data));
+
   return data;
 };
 
@@ -17,12 +15,9 @@ export const loginUser = async (user) => {
     method: 'POST',
     body: JSON.stringify(user),
   });
-
-  if (response.status === 400)
-    throw new Error('Введен неправильный логин или пароль');
-  if (!response.ok) throw new Error('Ошибка сервера');
-
   const data = await response.json();
+  if (!response.ok) throw new Error(Object.values(data));
+
   return data;
 };
 
@@ -33,11 +28,9 @@ export const getTasks = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  if (!response.ok) {
-    throw new Error('Не удалось загрузить данные, попробуйте позже');
-  }
   const data = await response.json();
+
+  if (!response.ok) throw new Error(Object.values(data));
   return data;
 };
 
