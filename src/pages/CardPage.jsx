@@ -28,7 +28,7 @@ const CardPage = ({ cardList, token, setCards }) => {
         <S.Block>
           <S.Content>
             <S.TopBlock>
-              <S.Ttl>Название задачи {cardId}</S.Ttl>
+              <S.Ttl>Название задачи {card.title}</S.Ttl>
               <S.ThemeTop $theme={card.topic}>
                 <p>{card.topic}</p>
               </S.ThemeTop>
@@ -54,6 +54,7 @@ const CardPage = ({ cardList, token, setCards }) => {
                     id="textArea01"
                     readOnly
                     placeholder="Введите описание задачи..."
+                    value={card.description}
                   ></S.FormArea>
                 </S.FormBlock>
               </S.Form>

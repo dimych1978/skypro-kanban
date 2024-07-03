@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import * as S from './Nav.styled';
 import { Link } from 'react-router-dom';
+import { useUserContext } from '../../hooks/useUserContext';
 
 const PopupUser = ({ isLight, setIsLight }) => {
+  const { user } = useUserContext();
+
   const handleTheme = () => {
     setIsLight(!isLight);
   };
 
   return (
     <S.PopUserHeader id="user-set-target">
-      <S.PopUserName>Ivan Ivanov</S.PopUserName>
-      <S.PopUserMail>ivan.ivanov@gmail.com</S.PopUserMail>
+      <S.PopUserName>{user.name}</S.PopUserName>
+      <S.PopUserMail>{user.login}</S.PopUserMail>
       <S.PopUserTheme>
         <p>Темная тема</p>
         <input
@@ -29,6 +32,8 @@ const PopupUser = ({ isLight, setIsLight }) => {
 
 const Nav = ({ isLight, setIsLight }) => {
   const [popupUser, setPopupUser] = useState(false);
+  const { user } = useUserContext();
+
   const handleUser = () => {
     setPopupUser(!popupUser);
   };
@@ -41,7 +46,7 @@ const Nav = ({ isLight, setIsLight }) => {
       <S.Button id="btnMainNew">
         <Link to={'/newcard'}>Создать новую задачу</Link>
       </S.Button>
-      <S.HeaderUser onClick={handleUser}>Ivan Ivanov</S.HeaderUser>
+      <S.HeaderUser onClick={handleUser}>{user.name}</S.HeaderUser>
       {popupUser && <PopupUser isLight={isLight} setIsLight={handleTheme} />}
     </S.Nav>
   );

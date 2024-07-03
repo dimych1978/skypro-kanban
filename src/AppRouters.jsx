@@ -10,8 +10,7 @@ import { PrivateRoute } from './PrivateRote';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns/format';
 import { addTask, getTasks } from './api/api';
-
-const token = localStorage.getItem('token') || null;
+import { useUserContext } from './hooks/useUserContext';
 
 const appRouters = {
   HOME: '/',
@@ -23,70 +22,67 @@ const appRouters = {
 };
 
 const AppRouters = () => {
-  const [cards, setCards] = useState('');
+  const { user } = useUserContext();
+  const [cards, setCards] = useState([]);
   const [isError, setIsError] = useState(null);
 
+  console.log(cards);
+
   useEffect(() => {
-    token &&
-      getTasks(token)
-        .then((data) => setCards(data.tasks))
+    try {
+      getTasks(user.token)
+        .then((data) => {
+          setIsError(null);
+          return setCards(data.tasks);
+        })
         .catch((err) => {
           setIsError('Не удалось загрузить данные, попробуйте позже');
-          console.log(err.message);
+          console.error(err.message);
         });
-  }, []);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }, [user]);
 
-  const onAddCard = async (taskName, topic) => {
+  const onAddCard = async ({ name, text }, topic) => {
+    console.log(name, text);
     const newTask = {
       topic: topic,
-      title: taskName,
+      title: name,
       date: format(new Date(), 'MM.dd.yyyy'),
       status: 'Без статуса',
-      description: 'Подробное описание задачи',
+      description: text,
     };
-    await addTask(token, newTask);
-    getTasks(token).then((data) => setCards(data.tasks));
+    await addTask(user.token, newTask);
+    getTasks(user.token).then((data) => setCards(data.tasks));
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute token={token} />}>
+        <Route element={<PrivateRoute token={user?.token} />}>
           <Route
             path={appRouters.HOME}
             element={<Home cards={cards} isError={isError} />}
           >
-            {/* {isError && (
-              <Route element={} />
-            )} */}
             <Route
               path={appRouters.CARD}
               element={
-                <CardPage cardList={cards} token={token} setCards={setCards} />
+                <CardPage
+                  cardList={cards}
+                  token={user?.token}
+                  setCards={setCards}
+                />
               }
             ></Route>
             <Route
               path={appRouters.NEWCARD}
               element={<NewCard addCards={onAddCard} />}
             ></Route>
-            <Route
-              path={appRouters.EXIT}
-              element={
-                <Exit
-                // setToken={setToken}
-                />
-              }
-            ></Route>
+            <Route path={appRouters.EXIT} element={<Exit />}></Route>
           </Route>
         </Route>
-        <Route
-          path={appRouters.LOGIN}
-          element={
-            <Login
-            // setToken={setToken}
-            />
-          }
-        ></Route>
+        <Route path={appRouters.LOGIN} element={<Login />}></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>
       </Routes>

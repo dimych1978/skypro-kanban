@@ -20,22 +20,23 @@ const NewCard = ({ addCards }) => {
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
 
-  const [newTask, setNewTask] = useState('');
+  const [newTask, setNewTask] = useState({ name: '', text: '' });
   const [topic, setTopic] = useState('Web Design');
 
   const handleChange = (e) => {
+    console.log(e.target);
     setIsError(null);
-    setNewTask(e.target.value);
+    setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
 
   const changeTheme = (theme) => {
     setTopic(theme);
-    console.log(topic);
   };
 
   const handleCreate = async () => {
     try {
       setIsLoading(true);
+      console.log(newTask);
       await addCards(newTask, topic);
       setIsLoading(false);
       navigate('/');
@@ -72,6 +73,7 @@ const NewCard = ({ addCards }) => {
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
+                    onChange={handleChange}
                   ></FormArea>
                 </S.FormBlock>
               </S.Form>

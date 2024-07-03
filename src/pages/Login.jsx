@@ -7,9 +7,11 @@ import IfError from '../components/IfError/IfError';
 import { loginUser } from '../api/api';
 import { useLoading } from '../hooks/useLoading';
 import { Spinner } from '../components/Spinner';
+import { useUserContext } from '../hooks/useUserContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { updateUser } = useUserContext();
 
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
@@ -27,7 +29,9 @@ const Login = () => {
 
     try {
       const response = await loginUser(user);
-      localStorage.setItem('token', response.user.token);
+      updateUser(response.user);
+      localStorage.setItem('user', JSON.stringify(response.user));
+
       navigate('/');
     } catch (error) {
       console.warn(error);
