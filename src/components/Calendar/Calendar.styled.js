@@ -123,8 +123,15 @@ export const ActiveDay = styled(CellDay)`
 
 export const CalendarPeriod = styled.div`
   padding: 0 7px;
+  p {
+    color: #94a6be;
+    font-size: 10px;
+    line-height: 1;
+  }
 `;
 
 export const PeriodEnd = styled.div``;
 
-export const DateControl = styled.div``;
+export const CalendarDateControl = styled.span`
+  color: #000000;
+`;

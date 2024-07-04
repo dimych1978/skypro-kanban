@@ -8,7 +8,7 @@ import {
   Purple,
   hover01,
   hover03,
-} from '../Common.styled';
+} from '../../Common.styled';
 
 export const PopBrows = styled.div`
   position: absolute;

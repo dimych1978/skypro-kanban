@@ -1,15 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Wrapper } from './Home.styled';
+import { Wrapper } from '../Home/Home.styled';
 import * as S from './Login.styled';
-import { GlobalStyles } from '../Global.styled';
+import { GlobalStyles } from '../../Global.styled';
 import { useState } from 'react';
-import IfError from '../components/IfError/IfError';
-import { loginUser } from '../api/api';
-import { useLoading } from '../hooks/useLoading';
-import { Spinner } from '../components/Spinner';
-import { useUserContext } from '../hooks/useUserContext';
+import IfError from '../../components/IfError/IfError';
+import { loginUser } from '../../api/api';
+import { useLoading } from '../../hooks/useLoading';
+import { Spinner } from '../../components/Spinner';
 
-const Login = () => {
+const Login = ({ setToken }) => {
   const navigate = useNavigate();
   const { updateUser } = useUserContext();
 

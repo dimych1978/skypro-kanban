@@ -6,15 +6,17 @@ import {
   FormArea,
   LabelForm,
   Subttl,
-} from './CardPage.styled';
-import { categoriesList } from '../data';
+} from '../CardPage/CardPage.styled';
+import { categoriesList, user } from '../../data';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoading } from '../hooks/useLoading';
-import { Spinner } from '../components/Spinner';
-import IfError from '../components/IfError/IfError';
+import { useLoading } from '../../hooks/useLoading';
+import { Spinner } from '../../components/Spinner';
+import IfError from '../../components/IfError/IfError';
+import { addTask, getTasks } from '../../api/api';
+import { format } from 'date-fns';
 
-const NewCard = ({ addCards }) => {
+const NewCard = ({ setCards }) => {
   const navigate = useNavigate();
 
   const [isError, setIsError] = useState(null);
@@ -31,13 +33,25 @@ const NewCard = ({ addCards }) => {
 
   const changeTheme = (theme) => {
     setTopic(theme);
+    console.log(topic);
+  };
+
+  const onAddCard = async (taskName, topic) => {
+    const newTask = {
+      topic: topic,
+      title: taskName,
+      date: format(new Date(), 'MM.dd.yyyy'),
+      status: 'Без статуса',
+      description: 'Подробное описание задачи',
+    };
+    await addTask(user.token, newTask);
+    getTasks(user.token).then((data) => setCards(data.tasks));
   };
 
   const handleCreate = async () => {
     try {
       setIsLoading(true);
-      console.log(newTask);
-      await addCards(newTask, topic);
+      await onAddCard(newTask, topic);
       setIsLoading(false);
       navigate('/');
     } catch (error) {

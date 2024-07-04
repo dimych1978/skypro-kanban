@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { hover01 } from '../Common.styled';
+import { hover01 } from '../../Common.styled';
 
 export const Container = styled.div`
   display: block;

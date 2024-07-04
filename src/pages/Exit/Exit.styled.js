@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { hover01, hover03 } from '../Common.styled';
+import { hover01, hover03 } from '../../Common.styled';
 
 export const Exit = styled.div`
   position: absolute;

@@ -1,16 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
-import Registry from './pages/Registry';
-import CardPage from './pages/CardPage';
-import Exit from './pages/Exit';
-import Home from './pages/Home';
-import NewCard from './pages/NewCard';
+import Login from './pages/Login/Login';
+import NotFound from './pages/NotFound/NotFound';
+import Registry from './pages/Registry/Registry';
+import CardPage from './pages/CardPage/CardPage';
+import Exit from './pages/Exit/Exit';
+import Home from './pages/Home/Home';
+import NewCard from './pages/NewCard/NewCard';
 import { PrivateRoute } from './PrivateRote';
 import { useEffect, useState } from 'react';
-import { format } from 'date-fns/format';
-import { addTask, getTasks } from './api/api';
-import { useUserContext } from './hooks/useUserContext';
+import { getTasks } from './api/api';
 
 const appRouters = {
   HOME: '/',
@@ -25,9 +23,7 @@ const AppRouters = () => {
   const { user } = useUserContext();
   const [cards, setCards] = useState([]);
   const [isError, setIsError] = useState(null);
-
-  console.log(cards);
-
+  const [token, setToken] = useState(null);
   useEffect(() => {
     try {
       getTasks(user.token)
@@ -36,26 +32,12 @@ const AppRouters = () => {
           return setCards(data.tasks);
         })
         .catch((err) => {
-          setIsError('Не удалось загрузить данные, попробуйте позже');
+          if (err.message === 'Failed to fetch')
+            setIsError('Не удалось загрузить данные, попробуйте позже');
+          setIsError(err.message);
           console.error(err.message);
         });
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, [user]);
-
-  const onAddCard = async ({ name, text }, topic) => {
-    console.log(name, text);
-    const newTask = {
-      topic: topic,
-      title: name,
-      date: format(new Date(), 'MM.dd.yyyy'),
-      status: 'Без статуса',
-      description: text,
-    };
-    await addTask(user.token, newTask);
-    getTasks(user.token).then((data) => setCards(data.tasks));
-  };
+  }, [token]);
 
   return (
     <BrowserRouter>
@@ -77,12 +59,15 @@ const AppRouters = () => {
             ></Route>
             <Route
               path={appRouters.NEWCARD}
-              element={<NewCard addCards={onAddCard} />}
+              element={<NewCard setCards={setCards} />}
             ></Route>
             <Route path={appRouters.EXIT} element={<Exit />}></Route>
           </Route>
         </Route>
-        <Route path={appRouters.LOGIN} element={<Login />}></Route>
+        <Route
+          path={appRouters.LOGIN}
+          element={<Login setToken={setToken} />}
+        ></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>
       </Routes>
