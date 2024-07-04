@@ -9,6 +9,7 @@ import NewCard from './pages/NewCard/NewCard';
 import { PrivateRoute } from './PrivateRote';
 import { useEffect, useState } from 'react';
 import { getTasks } from './api/api';
+import { useUserContext } from './hooks/useUserContext';
 
 const appRouters = {
   HOME: '/',
@@ -23,21 +24,22 @@ const AppRouters = () => {
   const { user } = useUserContext();
   const [cards, setCards] = useState([]);
   const [isError, setIsError] = useState(null);
-  const [token, setToken] = useState(null);
+
   useEffect(() => {
+    // user.token &&
     try {
       getTasks(user.token)
-        .then((data) => {
-          setIsError(null);
-          return setCards(data.tasks);
-        })
+        .then((data) => setCards(data.tasks))
         .catch((err) => {
           if (err.message === 'Failed to fetch')
             setIsError('Не удалось загрузить данные, попробуйте позже');
           setIsError(err.message);
           console.error(err.message);
         });
-  }, [token]);
+    } catch (error) {
+      console.warn(error.message);
+    }
+  }, [user.token]);
 
   return (
     <BrowserRouter>
@@ -64,10 +66,7 @@ const AppRouters = () => {
             <Route path={appRouters.EXIT} element={<Exit />}></Route>
           </Route>
         </Route>
-        <Route
-          path={appRouters.LOGIN}
-          element={<Login setToken={setToken} />}
-        ></Route>
+        <Route path={appRouters.LOGIN} element={<Login />}></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>
       </Routes>

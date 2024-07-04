@@ -7,8 +7,9 @@ import IfError from '../../components/IfError/IfError';
 import { loginUser } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
+import { useUserContext } from '../../hooks/useUserContext';
 
-const Login = ({ setToken }) => {
+const Login = () => {
   const navigate = useNavigate();
   const { updateUser } = useUserContext();
 

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Exit.styled';
-import { useUserContext } from '../hooks/useUserContext';
+import { useUserContext } from '/src/hooks/useUserContext';
 
 const Exit = () => {
   const navigate = useNavigate();
