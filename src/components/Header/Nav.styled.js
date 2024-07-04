@@ -156,4 +156,8 @@ export const BntExit = styled.button`
   ${hover03} {
     color: #565eef;
   }
+
+  a {
+    color: #565eef;
+  }
 `;

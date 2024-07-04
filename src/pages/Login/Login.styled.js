@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { hover01 } from '../Common.styled';
+import { hover01 } from '../../Common.styled';
 
 export const Container = styled.div`
   display: block;
@@ -94,6 +94,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.div`
+  cursor: pointer;
   width: 100%;
   height: 30px;
   background-color: #565eef;

@@ -84,3 +84,5 @@ export const categoriesList = ['Web Design', 'Research', 'Copywriting'];
 export const light = { bg: '#EAEEF6', text: '#000' };
 
 export const dark = { bg: '#151419', text: '#fff' };
+
+export const user = JSON.parse(localStorage.getItem('user')) || null;

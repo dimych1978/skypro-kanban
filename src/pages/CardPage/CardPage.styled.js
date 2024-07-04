@@ -8,7 +8,7 @@ import {
   Purple,
   hover01,
   hover03,
-} from '../Common.styled';
+} from '../../Common.styled';
 
 export const PopBrows = styled.div`
   position: absolute;
@@ -78,7 +78,9 @@ export const CategoriesTheme = styled.div`
 
   opacity: 0.4;
   border-radius: 24px;
-  ${ActiveCategory}
+
+  ${({ $active }) => $active && ActiveCategory}
+
   ${({ $theme }) => $theme === 'Web Design' && Orange}
    ${({ $theme }) => $theme === 'Copywriting' && Purple}
    ${({ $theme }) => $theme === 'Research' && Green}

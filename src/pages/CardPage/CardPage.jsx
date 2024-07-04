@@ -1,11 +1,26 @@
-import { Link, useParams } from 'react-router-dom';
-import { cardList, statusList } from '../data';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { statusList } from '../../data';
 import Calendar from '/src/components/Calendar/Calendar';
 import * as S from './CardPage.styled';
+import { deleteTask, getTasks } from '../../api/api';
+import { useLoading } from '../../hooks/useLoading';
+import { Spinner } from '../../components/Spinner';
 
-const CardPage = () => {
+const CardPage = ({ cardList, token, setCards }) => {
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useLoading();
+
   let { cardId } = useParams();
-  const card = cardList.find((item) => item.id === +cardId);
+  const card = cardList.find((item) => item._id === cardId);
+
+  const handleDelete = async () => {
+    setIsLoading(true);
+    await deleteTask(token, card._id);
+    await getTasks(token).then((data) => setCards(data.tasks));
+    setIsLoading(false);
+    navigate('/');
+  };
 
   return (
     <S.PopBrows id="popBrowse">
@@ -14,8 +29,8 @@ const CardPage = () => {
           <S.Content>
             <S.TopBlock>
               <S.Ttl>Название задачи {cardId}</S.Ttl>
-              <S.ThemeTop $theme={card.theme}>
-                <p>{card.theme}</p>
+              <S.ThemeTop $theme={card.topic} $active="active">
+                <p>{card.topic}</p>
               </S.ThemeTop>
             </S.TopBlock>
             <S.Status>
@@ -46,8 +61,8 @@ const CardPage = () => {
             </S.Wrap>
             <S.ThemeDown>
               <S.Subttl>Категория</S.Subttl>
-              <S.ThemeTop $theme={card.theme}>
-                <p>{card.theme}</p>
+              <S.ThemeTop $theme={card.topic}>
+                <p>{card.topic}</p>
               </S.ThemeTop>
             </S.ThemeDown>
             <S.Btn>
@@ -55,9 +70,10 @@ const CardPage = () => {
                 <S.Button>
                   <Link to="#">Редактировать задачу</Link>
                 </S.Button>
-                <S.Button>
-                  <Link to="#">Удалить задачу</Link>
-                </S.Button>
+                <div style={{ display: 'flex', float: 'right' }}>
+                  <S.Button onClick={handleDelete}>Удалить задачу</S.Button>
+                  <Spinner display={isLoading ? 'inline' : 'none'} />
+                </div>
               </S.BtnGroup>
               <S.BtnClose>
                 <Link to="/">Закрыть</Link>

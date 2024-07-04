@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { hover01 } from '../Common.styled';
+import { hover01 } from '../../Common.styled';
 
 export const NewCard = styled.div`
   position: absolute;
@@ -110,6 +110,10 @@ export const FormInput = styled.input`
     color: #94a6be;
     letter-spacing: -0.14px;
   }
+`;
+
+export const CategoriesTheme = styled.div`
+  margin-bottom: 20px;
 `;
 
 export const BtnCreate = styled.button`
