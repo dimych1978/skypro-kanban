@@ -1,5 +1,6 @@
 // import { useRef } from 'react';
-import Calendar from '/src/components/Calendar/Calendar';
+// import Calendar from '/src/components/Calendar/Calendar';
+import Calendar from '../../components/Calendar/CalendarDayPicker';
 import * as S from './NewCard.styled';
 import {
   CategoriesTheme,
@@ -7,7 +8,7 @@ import {
   LabelForm,
   Subttl,
 } from '../CardPage/CardPage.styled';
-import { categoriesList, user } from '../../data';
+import { categoriesList } from '../../data';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoading } from '../../hooks/useLoading';
@@ -15,10 +16,14 @@ import { Spinner } from '../../components/Spinner';
 import IfError from '../../components/IfError/IfError';
 import { addTask, getTasks } from '../../api/api';
 import { format } from 'date-fns';
+import { useUserContext } from '../../hooks/useUserContext';
+import { useCardsContext } from '../../hooks/useCardsContext';
 
-const NewCard = ({ setCards }) => {
+const NewCard = () => {
   const navigate = useNavigate();
+  const { updateCards } = useCardsContext();
 
+  const { user } = useUserContext();
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
 
@@ -26,26 +31,24 @@ const NewCard = ({ setCards }) => {
   const [topic, setTopic] = useState('Web Design');
 
   const handleChange = (e) => {
-    console.log(e.target);
     setIsError(null);
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
 
   const changeTheme = (theme) => {
     setTopic(theme);
-    console.log(topic);
   };
 
-  const onAddCard = async (taskName, topic) => {
+  const onAddCard = async ({ name, text }, topic) => {
     const newTask = {
       topic: topic,
-      title: taskName,
+      title: name,
       date: format(new Date(), 'MM.dd.yyyy'),
       status: 'Без статуса',
-      description: 'Подробное описание задачи',
+      description: text,
     };
     await addTask(user.token, newTask);
-    getTasks(user.token).then((data) => setCards(data.tasks));
+    getTasks(user.token).then((data) => updateCards(data.tasks));
   };
 
   const handleCreate = async () => {

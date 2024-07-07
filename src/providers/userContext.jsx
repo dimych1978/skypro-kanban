@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const UserContext = createContext(null);
 
@@ -8,6 +8,10 @@ export const UserProvider = ({ children }) => {
   const updateUser = (newUser) => {
     setUser(newUser);
   };
+
+  useEffect(() => {
+    localStorage.setItem(user, 'user');
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, updateUser }}>

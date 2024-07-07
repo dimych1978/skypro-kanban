@@ -5,19 +5,23 @@ import * as S from './CardPage.styled';
 import { deleteTask, getTasks } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
+import { useCardsContext } from '../../hooks/useCardsContext';
+import { useUserContext } from '../../hooks/useUserContext';
 
-const CardPage = ({ cardList, token, setCards }) => {
+const CardPage = () => {
   const navigate = useNavigate();
+  const { token } = useUserContext();
+  const { cards, updateCards } = useCardsContext();
 
   const [isLoading, setIsLoading] = useLoading();
 
   let { cardId } = useParams();
-  const card = cardList.find((item) => item._id === cardId);
+  const card = cards.find((item) => item._id === cardId);
 
   const handleDelete = async () => {
     setIsLoading(true);
     await deleteTask(token, card._id);
-    await getTasks(token).then((data) => setCards(data.tasks));
+    await getTasks(token).then((data) => updateCards(data.tasks));
     setIsLoading(false);
     navigate('/');
   };
@@ -28,7 +32,7 @@ const CardPage = ({ cardList, token, setCards }) => {
         <S.Block>
           <S.Content>
             <S.TopBlock>
-              <S.Ttl>Название задачи {cardId}</S.Ttl>
+              <S.Ttl>Название задачи: {card.title}</S.Ttl>
               <S.ThemeTop $theme={card.topic} $active="active">
                 <p>{card.topic}</p>
               </S.ThemeTop>

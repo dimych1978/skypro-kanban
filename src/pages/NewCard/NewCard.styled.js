@@ -114,6 +114,7 @@ export const FormInput = styled.input`
 
 export const CategoriesTheme = styled.div`
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 export const BtnCreate = styled.button`

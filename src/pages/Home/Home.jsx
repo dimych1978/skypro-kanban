@@ -8,10 +8,12 @@ import { ThemeProvider } from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
 import IfError from '../../components/IfError/IfError';
+import { useCardsContext } from '../../hooks/useCardsContext';
 
-function Home({ cards, isError }) {
+function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLight, setIsLight] = useState(true);
+  const { cards, isError } = useCardsContext();
 
   useEffect(() => {
     setTimeout(() => {
