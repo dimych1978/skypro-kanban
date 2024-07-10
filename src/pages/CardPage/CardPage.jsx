@@ -10,7 +10,8 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 const CardPage = () => {
   const navigate = useNavigate();
-  const { token } = useUserContext();
+  const { user } = useUserContext();
+
   const { cards, updateCards } = useCardsContext();
 
   const [isLoading, setIsLoading] = useLoading();
@@ -20,8 +21,8 @@ const CardPage = () => {
 
   const handleDelete = async () => {
     setIsLoading(true);
-    await deleteTask(token, card._id);
-    await getTasks(token).then((data) => updateCards(data.tasks));
+    await deleteTask(user.token, card._id);
+    await getTasks(user.token).then((data) => updateCards(data.tasks));
     setIsLoading(false);
     navigate('/');
   };

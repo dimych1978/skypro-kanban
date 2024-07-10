@@ -89,6 +89,13 @@ export const FormBlock = styled.div`
   flex-direction: column;
 `;
 
+export const LabelForm = styled.label`
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`;
+
 export const FormInput = styled.input`
   width: 100%;
   padding: 14px;

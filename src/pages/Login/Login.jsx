@@ -28,6 +28,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+      for (const key in user) {
+        if (!user[key]) throw new Error('Заполните все поля ввода');
+      }
       const response = await loginUser(user);
       updateUser(response.user);
       localStorage.setItem('user', JSON.stringify(response.user));

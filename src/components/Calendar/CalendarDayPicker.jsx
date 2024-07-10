@@ -4,7 +4,7 @@ import 'react-day-picker/dist/style.css';
 import { format, isValid, parse } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
-const CalendarDayPicker = () => {
+const CalendarDayPicker = ({ selectDate }) => {
   const inputId = useId();
 
   const [month, setMonth] = useState(new Date());
@@ -20,17 +20,18 @@ const CalendarDayPicker = () => {
     } else {
       setSelectedDate(date);
       setMonth(date);
-      setInputValue(format(date, 'dd.MM.yyyy'));
-      console.log(inputValue);
+      setInputValue(format(date, 'dd.MM.yy'));
+      selectDate(date);
     }
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    const parsedDate = parse(e.target.value, 'dd.MM.yyyy', new Date());
+    const parsedDate = parse(e.target.value, 'dd.MM.yy', new Date());
     if (isValid(parsedDate)) {
       setSelectedDate(parsedDate);
       setMonth(parsedDate);
+      selectDate(parsedDate);
     } else {
       setSelectedDate(undefined);
     }
@@ -53,6 +54,7 @@ const CalendarDayPicker = () => {
             lineHeight: 'normal',
             letterSpacing: '-0.2px',
             textTransform: 'lowercase',
+            fontSize: '10px',
           },
         }}
         locale={ru}
@@ -63,35 +65,21 @@ const CalendarDayPicker = () => {
         onSelect={handleDayPickerSelect}
         footer={
           <>
-            <S.CalendarDateControl
-              id={inputId}
-              type="text"
-              value={inputValue}
-              placeholder="дд.мм.гггг"
-              onChange={handleInputChange}
-            ></S.CalendarDateControl>
             <S.CalendarPeriod>
               <p aria-live="assertive" aria-atomic="true">
-                Выберите срок исполнения
+                Выберите срок исполнения{' '}
+                <S.CalendarDateControl
+                  id={inputId}
+                  type="text"
+                  value={inputValue}
+                  placeholder={format(new Date(), 'dd.MM.yy')}
+                  onChange={handleInputChange}
+                />
               </p>
             </S.CalendarPeriod>
           </>
         }
-      >
-        <p>
-          Выберите срок исполнения:
-          <input
-            style={{ fontSize: 'inherit' }}
-            id={inputId}
-            type="text"
-            value={inputValue}
-            placeholder="MM/dd/yyyy"
-            onChange={handleInputChange}
-          />
-          {/* <S.CalendarDateControl></S.CalendarDateControl> */}
-        </p>
-        {/* </S.CalendarPeriod> */}
-      </S.CalendarBlock>
+      ></S.CalendarBlock>
     </S.Calendar>
   );
 };

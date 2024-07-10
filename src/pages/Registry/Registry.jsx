@@ -31,6 +31,10 @@ const Registry = () => {
     setIsLoading(true);
 
     try {
+      for (const key in user) {
+        if (!user[key]) throw new Error('Заполните все поля ввода');
+      }
+
       await registryUser(user);
       navigate('/login');
     } catch (error) {

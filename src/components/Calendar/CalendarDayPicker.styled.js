@@ -1,9 +1,9 @@
-import { Caption, DayPicker } from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 import styled from 'styled-components';
 import 'react-day-picker/dist/style.css';
 
 export const Calendar = styled.div`
-  width: 182px;
+  /* width: 182px; */
   margin-bottom: 20px;
 `;
 
@@ -17,20 +17,11 @@ export const CalendarTtl = styled.p`
 `;
 
 export const CalendarBlock = styled(DayPicker)`
+  margin: 0;
   display: block;
   color: #94a6be;
-  --rdp-cell-size: 20px;
+  --rdp-cell-size: 22px;
   --rdp-caption-font-size: 6px;
-`;
-
-export const CalendarNav = styled(Caption)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 14px;
-  padding: 0 7px;
-  color: red;
 `;
 
 export const CalendarPeriod = styled.div`
@@ -44,5 +35,15 @@ export const CalendarPeriod = styled.div`
 `;
 
 export const CalendarDateControl = styled.input`
-  color: #000000;
+  margin: 8px 0;
+  padding: 4px 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a6be;
+  display: inline;
+  border: none;
+  background-color: #eaeef6;
+  &::placeholder {
+    color: #94a6be;
+  }
 `;

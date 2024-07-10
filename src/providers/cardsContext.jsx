@@ -16,20 +16,21 @@ export const CardsProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      getTasks(user.token)
-        .then((data) => {
-          setCards(data.tasks);
-        })
-        .catch((err) => {
-          if (err.message === 'Failed to fetch')
-            setIsError('Не удалось загрузить данные, попробуйте позже');
-          setIsError(err.message);
-          console.error(err.message);
-        });
+      user &&
+        getTasks(user.token)
+          .then((data) => {
+            setCards(data.tasks);
+          })
+          .catch((err) => {
+            if (err.message === 'Failed to fetch')
+              setIsError('Не удалось загрузить данные, попробуйте позже');
+            setIsError(err.message);
+            console.error(err.message);
+          });
     } catch (error) {
       console.warn(error.message);
     }
-  }, [user?.token]);
+  }, [user]);
 
   useEffect(() => {
     updateCards(cards);

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Green, Orange, Purple } from '../../../Common.styled';
+import { Link } from 'react-router-dom';
 
 export const Item = styled.div`
   padding: 5px;
@@ -81,7 +82,7 @@ export const Title = styled.h3`
   color: #000;
 `;
 
-export const CardBtn = styled.div`
+export const CardBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-around;

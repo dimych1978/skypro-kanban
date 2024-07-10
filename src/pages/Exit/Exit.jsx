@@ -1,16 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Exit.styled';
-import { useUserContext } from '/src/hooks/useUserContext';
 
 const Exit = () => {
   const navigate = useNavigate();
-  const { updateUser } = useUserContext();
 
   const handleAuth = () => {
     localStorage.clear();
-    updateUser(null);
     navigate('/login');
   };
+
   return (
     <S.Exit id="popExit">
       <S.Container>

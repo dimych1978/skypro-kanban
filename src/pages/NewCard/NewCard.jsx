@@ -2,12 +2,7 @@
 // import Calendar from '/src/components/Calendar/Calendar';
 import Calendar from '../../components/Calendar/CalendarDayPicker';
 import * as S from './NewCard.styled';
-import {
-  CategoriesTheme,
-  FormArea,
-  LabelForm,
-  Subttl,
-} from '../CardPage/CardPage.styled';
+import { CategoriesTheme, FormArea, Subttl } from '../CardPage/CardPage.styled';
 import { categoriesList } from '../../data';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +10,6 @@ import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import IfError from '../../components/IfError/IfError';
 import { addTask, getTasks } from '../../api/api';
-import { format } from 'date-fns';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useCardsContext } from '../../hooks/useCardsContext';
 
@@ -28,7 +22,12 @@ const NewCard = () => {
   const [isLoading, setIsLoading] = useLoading();
 
   const [newTask, setNewTask] = useState({ name: '', text: '' });
+  const [date, setDate] = useState(new Date());
   const [topic, setTopic] = useState('Web Design');
+
+  const handleDate = (date) => {
+    setDate(date);
+  };
 
   const handleChange = (e) => {
     setIsError(null);
@@ -43,10 +42,12 @@ const NewCard = () => {
     const newTask = {
       topic: topic,
       title: name,
-      date: format(new Date(), 'MM.dd.yyyy'),
+      date: new Date(date),
       status: 'Без статуса',
       description: text,
     };
+    if (!name || !text) throw new Error('Укажите название и описание задачи');
+
     await addTask(user.token, newTask);
     getTasks(user.token).then((data) => updateCards(data.tasks));
   };
@@ -55,11 +56,12 @@ const NewCard = () => {
     try {
       setIsLoading(true);
       await onAddCard(newTask, topic);
-      setIsLoading(false);
       navigate('/');
     } catch (error) {
       setIsError(error.message);
-      console.warn(isError, error.message);
+      console.warn(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -72,7 +74,7 @@ const NewCard = () => {
             <S.Wrap>
               <S.Form id="formNewCard" action="#">
                 <S.FormBlock>
-                  <LabelForm htmlFor="formTitle">Название задачи</LabelForm>
+                  <S.LabelForm htmlFor="formTitle">Название задачи</S.LabelForm>
                   <S.FormInput
                     type="text"
                     name="name"
@@ -83,9 +85,9 @@ const NewCard = () => {
                   />
                 </S.FormBlock>
                 <S.FormBlock>
-                  <LabelForm htmlFor="textArea" className="subttl">
+                  <S.LabelForm htmlFor="textArea" className="subttl">
                     Описание задачи
-                  </LabelForm>
+                  </S.LabelForm>
                   <FormArea
                     name="text"
                     id="textArea"
@@ -94,7 +96,7 @@ const NewCard = () => {
                   ></FormArea>
                 </S.FormBlock>
               </S.Form>
-              <Calendar />
+              <Calendar selectDate={handleDate} />
             </S.Wrap>
             <S.CategoriesTheme>
               <Subttl>Категория</Subttl>
