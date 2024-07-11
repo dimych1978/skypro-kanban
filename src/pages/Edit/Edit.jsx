@@ -7,6 +7,7 @@ import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useCardsContext } from '../../hooks/useCardsContext';
 import { useUserContext } from '../../hooks/useUserContext';
+import { useState } from 'react';
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -19,6 +20,12 @@ const Edit = () => {
 
   let { cardId } = useParams();
   const card = cards.find((item) => item._id === cardId);
+
+  const [newDescription, setNewDescription] = useState(null);
+
+  const handleChange = (e) => {
+    setNewDescription({ ...newDescription, [e.target.name]: e.target.value });
+  };
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -61,6 +68,7 @@ const Edit = () => {
                     readOnly
                     placeholder="Введите описание задачи..."
                     value={card.description}
+                    onChange={handleChange}
                   ></S.FormArea>
                 </S.FormBlock>
               </S.Form>

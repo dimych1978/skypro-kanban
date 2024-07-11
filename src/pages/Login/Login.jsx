@@ -29,12 +29,11 @@ const Login = () => {
 
     try {
       for (const key in user) {
-        if (!user[key]) throw new Error('Заполните все поля ввода');
+        if (!user[key].trim()) throw new Error('Заполните все поля ввода');
       }
       const response = await loginUser(user);
       updateUser(response.user);
       localStorage.setItem('user', JSON.stringify(response.user));
-
       navigate('/');
     } catch (error) {
       console.warn(error);
