@@ -8,12 +8,14 @@ import Home from './pages/Home/Home';
 import NewCard from './pages/NewCard/NewCard';
 import { PrivateRoute } from './PrivateRote';
 import { useUserContext } from './hooks/useUserContext';
+import Edit from './pages/Edit/Edit';
 
 const appRouters = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRY: '/registry',
   CARD: '/card/:cardId',
+  EDIT: '/edit/:cardId',
   NEWCARD: '/newcard',
   EXIT: '/exit',
 };
@@ -27,6 +29,7 @@ const AppRouters = () => {
         <Route element={<PrivateRoute token={user?.token} />}>
           <Route path={appRouters.HOME} element={<Home />}>
             <Route path={appRouters.CARD} element={<CardPage />}></Route>
+            <Route path={appRouters.EDIT} element={<Edit />}></Route>
             <Route path={appRouters.NEWCARD} element={<NewCard />}></Route>
             <Route path={appRouters.EXIT} element={<Exit />}></Route>
           </Route>
