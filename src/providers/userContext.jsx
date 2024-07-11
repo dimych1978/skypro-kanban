@@ -3,14 +3,14 @@ import { createContext, useEffect, useState } from 'react';
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(null);
 
   const updateUser = (newUser) => {
     setUser(newUser);
   };
 
   useEffect(() => {
-    localStorage.setItem(user, 'user');
+    localStorage.getItem('user');
   }, [user]);
 
   return (

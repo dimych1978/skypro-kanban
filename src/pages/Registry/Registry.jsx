@@ -32,7 +32,7 @@ const Registry = () => {
 
     try {
       for (const key in user) {
-        if (!user[key]) throw new Error('Заполните все поля ввода');
+        if (!user[key].trim()) throw new Error('Заполните все поля ввода');
       }
 
       await registryUser(user);
