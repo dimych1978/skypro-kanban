@@ -7,7 +7,7 @@ const CardItem = ({ title, topic, date, id }) => {
     <S.Item>
       <S.Card>
         <S.Group>
-          <S.Theme $theme={topic}>
+          <S.Theme $topic={topic}>
             <p>{topic}</p>
           </S.Theme>
           <S.CardBtn to={`/card/${id}`}>

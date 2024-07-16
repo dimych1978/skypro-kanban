@@ -5,7 +5,7 @@ export const LogoDark = () => {
   return (
     <S.LogoDark>
       <Link to={'/'} target="_self">
-        <img src="images/logo_dark.png" alt="logo" />
+        <img src="img/logo-dark-arrows.png" alt="logo" />
       </Link>
     </S.LogoDark>
   );

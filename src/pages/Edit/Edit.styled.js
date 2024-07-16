@@ -30,7 +30,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background-color: ${({ theme }) => theme.bg};
+  background: rgba(0, 0, 0, ${({ theme }) => theme.opacity});
 `;
 
 export const Block = styled.div`
@@ -43,8 +44,8 @@ export const Block = styled.div`
   margin: 0 auto;
   padding: 40px 30px 38px;
 
-  background-color: #fff;
-  border: 0.7px solid #d4dbe5;
+  background-color: ${({ theme }) => theme.bgCard};
+  border: 0.7px solid ${({ theme }) => theme.border};
   border-radius: 10px;
 `;
 
@@ -64,7 +65,7 @@ export const Ttl = styled.h3`
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-  color: #000;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const CategoriesTheme = styled.div`
@@ -111,7 +112,7 @@ export const Subttl = styled(StatusP)`
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
-  color: #000;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const StatusThemes = styled.div`
@@ -122,6 +123,7 @@ export const StatusThemes = styled.div`
 `;
 
 export const StatusTheme = styled.div`
+  cursor: pointer;
   margin-right: 7px;
   margin-bottom: 7px;
   padding: 11px 14px 10px;
@@ -171,7 +173,8 @@ export const FormArea = styled.textarea`
   line-height: 1;
   letter-spacing: -0.14px;
 
-  background: #eaeef6;
+  background-color: ${({ theme }) => theme.bgCard};
+  color: ${({ theme }) => theme.text};
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 8px;
   outline: none;
@@ -202,15 +205,13 @@ export const BtnGroup = styled(Btn)`
 `;
 
 const BtnBor = css`
-  color: #565eef;
-
   background: transparent;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid ${({ theme }) => theme.btnText};
   border-radius: 4px;
   outline: none;
 
   a {
-    color: #565eef;
+    color: ${({ theme }) => theme.btnText};
     text-decoration: none;
   }
 `;
@@ -219,7 +220,6 @@ const BtnBg = css`
   color: #fff;
 
   background: #565eef;
-  border: none;
   border-radius: 4px;
   outline: none;
 
@@ -229,20 +229,23 @@ const BtnBg = css`
   padding: 0 14px;
 
   a {
-    color: #fff;
+    color: ${({ theme }) => theme.btnText};
     text-decoration: none;
   }
 `;
 
 export const Button = styled.button`
-  color: #565eef;
+  ${BtnBor};
+  ${BtnBg};
+  color: ${({ theme }) => theme.btnText};
+  background-color: ${({ theme }) => theme.bgCard};
   ${hover03}
-  ${BtnBg}
-  ${BtnBor}
 `;
 
 export const BtnClose = styled.button`
-  color: #94a6be;
   ${hover01}
   ${BtnBg}
+  a {
+    color: #fff;
+  }
 `;

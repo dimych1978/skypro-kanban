@@ -24,13 +24,12 @@ export const CardsProvider = ({ children }) => {
           .catch((err) => {
             if (err.message === 'Failed to fetch')
               setIsError('Не удалось загрузить данные, попробуйте позже');
-            setIsError(err.message);
-            console.error(err.message);
+            console.error(isError);
           });
     } catch (error) {
       console.warn(error.message);
     }
-  }, [user]);
+  }, [user, isError]);
 
   useEffect(() => {
     updateCards(cards);

@@ -1,8 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { statusList } from '../../data';
-import Calendar from '/src/components/Calendar/Calendar';
+import Calendar from '/src/components/Calendar/CalendarDayPicker';
 import * as S from './Edit.styled';
-import { deleteTask, getTasks } from '../../api/api';
+import { deleteTask, editTask, getTasks } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useCardsContext } from '../../hooks/useCardsContext';
@@ -21,10 +21,37 @@ const Edit = () => {
   let { cardId } = useParams();
   const card = cards.find((item) => item._id === cardId);
 
-  const [newDescription, setNewDescription] = useState(null);
+  const [newStatus, setNewStatus] = useState(card.status);
+
+  const [date, setDate] = useState(new Date(card.date));
+
+  const [newDescription, setNewDescription] = useState(card.description);
+
+  const handleDate = (date) => {
+    setDate(date);
+  };
 
   const handleChange = (e) => {
-    setNewDescription({ ...newDescription, [e.target.name]: e.target.value });
+    setNewDescription(e.target.value);
+  };
+
+  const changeStatus = (status) => {
+    setNewStatus(status);
+  };
+
+  const handleSave = async () => {
+    const changedTask = {
+      title: card.title,
+      topic: card.topic,
+      date: new Date(date),
+      status: newStatus,
+      description: newDescription,
+    };
+
+    await editTask(user.token, cardId, changedTask);
+    const tasks = await getTasks(user.token);
+    await updateCards(tasks.tasks);
+    navigate('/');
   };
 
   const handleDelete = async () => {
@@ -50,7 +77,11 @@ const Edit = () => {
               <S.Subttl>Статус</S.Subttl>
               <S.StatusThemes>
                 {statusList.map((status) => (
-                  <S.StatusTheme key={status} $visible={card.status === status}>
+                  <S.StatusTheme
+                    key={status}
+                    $visible={newStatus === status}
+                    onClick={() => changeStatus(status)}
+                  >
                     <p>{status}</p>
                   </S.StatusTheme>
                 ))}
@@ -59,20 +90,17 @@ const Edit = () => {
             <S.Wrap>
               <S.Form id="formBrowseCard" action="#">
                 <S.FormBlock>
-                  <S.LabelForm htmlFor="textArea01">
-                    Описание задачи
-                  </S.LabelForm>
+                  <S.Subttl htmlFor="textArea01">Описание задачи</S.Subttl>
                   <S.FormArea
                     name="text"
                     id="textArea01"
-                    readOnly
                     placeholder="Введите описание задачи..."
-                    value={card.description}
+                    defaultValue={card.description}
                     onChange={handleChange}
                   ></S.FormArea>
                 </S.FormBlock>
               </S.Form>
-              <Calendar />
+              <Calendar selectDate={handleDate} thisDate={card.date} />
             </S.Wrap>
             <S.ThemeDown>
               <S.Subttl>Категория</S.Subttl>
@@ -82,8 +110,10 @@ const Edit = () => {
             </S.ThemeDown>
             <S.Btn>
               <S.BtnGroup>
-                <S.Button>Сохранить</S.Button>
-                <S.Button>Отменить</S.Button>
+                <S.Button onClick={handleSave}>Сохранить</S.Button>
+                <S.Button onClick={() => navigate(`/card/${card._id}`)}>
+                  Отменить
+                </S.Button>
                 <div style={{ display: 'flex', float: 'right' }}>
                   <S.Button onClick={handleDelete}>Удалить задачу</S.Button>
                   <Spinner display={isLoading ? 'inline' : 'none'} />

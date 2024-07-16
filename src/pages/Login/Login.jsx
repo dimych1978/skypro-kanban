@@ -2,16 +2,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Wrapper } from '../Home/Home.styled';
 import * as S from './Login.styled';
 import { GlobalStyles } from '../../Global.styled';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import IfError from '../../components/IfError/IfError';
 import { loginUser } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useUserContext } from '../../hooks/useUserContext';
+import { ThemeContext } from '../../providers/themeContext';
+import { ThemeProvider } from 'styled-components';
+import { light, dark } from '/src/data';
 
 const Login = () => {
   const navigate = useNavigate();
   const { updateUser } = useUserContext();
+  const [isLight] = useContext(ThemeContext);
 
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
@@ -44,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={isLight ? light : dark}>
       <GlobalStyles />
       <Wrapper>
         <S.Container>
@@ -82,7 +86,7 @@ const Login = () => {
           </S.Modal>
         </S.Container>
       </Wrapper>
-    </>
+    </ThemeProvider>
   );
 };
 

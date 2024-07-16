@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { statusList } from '../../data';
-import Calendar from '/src/components/Calendar/Calendar';
+import Calendar from '/src/components/Calendar/CalendarFix';
 import * as S from './CardPage.styled';
 import { deleteTask, getTasks } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
@@ -51,9 +51,7 @@ const CardPage = () => {
             <S.Wrap>
               <S.Form id="formBrowseCard" action="#">
                 <S.FormBlock>
-                  <S.LabelForm htmlFor="textArea01">
-                    Описание задачи
-                  </S.LabelForm>
+                  <S.Subttl htmlFor="textArea01">Описание задачи</S.Subttl>
                   <S.FormArea
                     name="text"
                     id="textArea01"
@@ -63,7 +61,7 @@ const CardPage = () => {
                   ></S.FormArea>
                 </S.FormBlock>
               </S.Form>
-              <Calendar />
+              <Calendar selectDate={card.date} />
             </S.Wrap>
             <S.ThemeDown>
               <S.Subttl>Категория</S.Subttl>

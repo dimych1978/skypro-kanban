@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FormArea } from '../CardPage/CardPage.styled';
 import { hover01 } from '../../Common.styled';
 
 export const NewCard = styled.div`
@@ -25,7 +26,8 @@ export const Container = styled.div`
   min-height: 100vh;
   padding: 0 16px;
 
-  background: rgb(0 0 0 / 40%);
+  background-color: ${({ theme }) => theme.bg};
+  background: rgba(0, 0, 0, ${({ theme }) => theme.opacity});
 `;
 
 export const Block = styled.div`
@@ -38,8 +40,8 @@ export const Block = styled.div`
   margin: 0 auto;
   padding: 40px 30px 48px;
 
-  background-color: #fff;
-  border: 0.7px solid #d4dbe5;
+  background-color: ${({ theme }) => theme.bgCard};
+  border: 0.7px solid ${({ theme }) => theme.border};
   border-radius: 10px;
 `;
 
@@ -54,7 +56,7 @@ export const Ttl = styled.h3`
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-  color: #000;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const StyledLink = styled(Link)`
@@ -90,10 +92,15 @@ export const FormBlock = styled.div`
 `;
 
 export const LabelForm = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
+`;
+
+export const Area = styled(FormArea)`
+  background-color: ${({ theme }) => theme.bgCard};
+  color: ${({ theme }) => theme.text};
 `;
 
 export const FormInput = styled.input`
@@ -109,6 +116,8 @@ export const FormInput = styled.input`
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 8px;
   outline: none;
+
+  color: ${({ theme }) => theme.text};
 
   &::placeholder {
     font-size: 14px;

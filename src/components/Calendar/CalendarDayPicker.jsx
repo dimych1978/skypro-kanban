@@ -4,14 +4,18 @@ import 'react-day-picker/dist/style.css';
 import { format, isValid, parse } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
-const CalendarDayPicker = ({ selectDate }) => {
+const CalendarDayPicker = ({ selectDate, thisDate }) => {
   const inputId = useId();
 
-  const [month, setMonth] = useState(new Date());
+  const [month, setMonth] = useState(new Date(thisDate));
 
-  const [selectedDate, setSelectedDate] = useState(undefined);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date(thisDate) || undefined,
+  );
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(
+    format(thisDate, 'dd.MM.yy') || '',
+  );
 
   const handleDayPickerSelect = (date) => {
     if (!date) {
@@ -63,6 +67,7 @@ const CalendarDayPicker = ({ selectDate }) => {
         mode="single"
         selected={selectedDate}
         onSelect={handleDayPickerSelect}
+        defaultMonth={new Date(thisDate)}
         footer={
           <>
             <S.CalendarPeriod>
@@ -71,7 +76,7 @@ const CalendarDayPicker = ({ selectDate }) => {
                 <S.CalendarDateControl
                   id={inputId}
                   type="text"
-                  value={inputValue}
+                  value={inputValue ?? format(new Date(thisDate), 'dd.MM.yy')}
                   placeholder={format(new Date(), 'dd.MM.yy')}
                   onChange={handleInputChange}
                 />

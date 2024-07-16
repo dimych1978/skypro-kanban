@@ -1,8 +1,6 @@
-// import { useRef } from 'react';
-// import Calendar from '/src/components/Calendar/Calendar';
 import Calendar from '../../components/Calendar/CalendarDayPicker';
 import * as S from './NewCard.styled';
-import { CategoriesTheme, FormArea, Subttl } from '../CardPage/CardPage.styled';
+import { CategoriesTheme, Subttl } from '../CardPage/CardPage.styled';
 import { categoriesList } from '../../data';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -88,15 +86,15 @@ const NewCard = () => {
                   <S.LabelForm htmlFor="textArea" className="subttl">
                     Описание задачи
                   </S.LabelForm>
-                  <FormArea
+                  <S.Area
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
                     onChange={handleChange}
-                  ></FormArea>
+                  ></S.Area>
                 </S.FormBlock>
               </S.Form>
-              <Calendar selectDate={handleDate} />
+              <Calendar selectDate={handleDate} thisDate={new Date()} />
             </S.Wrap>
             <S.CategoriesTheme>
               <Subttl>Категория</Subttl>

@@ -1,16 +1,19 @@
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
-import * as S from './Calendar.styled';
+import * as S from './CalendarDayPicker.styled';
+import { ru } from 'date-fns/locale';
+import { DayContent, DayPicker } from 'react-day-picker';
 
-const Calendar = () => {
+const Calendar = ({ selectDate }) => {
   const [value, setValue] = useState(format(new Date(), 'dd.MM.yy'));
 
   const handlerChange = (e) => {
     setValue(e.target.value);
   };
-  const [activeDay, setActiveDay] = useState(-1);
-
+  const [selectedDate, setSelectedDate] = useState(new Date(selectDate));
+  useEffect(() => setSelectedDate(selectDate), []);
   const [numberDate, setNumberDate] = useState([]);
+  console.log(selectedDate);
 
   useEffect(() => {
     let arr = [];
@@ -27,7 +30,9 @@ const Calendar = () => {
       <S.SubTtl>Даты </S.SubTtl>
       <S.CalendarBlock>
         <S.CalendarNav>
-          <S.CalendarMonth>Сентябрь 2023</S.CalendarMonth>
+          <S.CalendarMonth>
+            {format(selectDate, 'LLLL', { locale: ru })}
+          </S.CalendarMonth>
           <S.NavActions>
             <S.NavAction data-action="prev">
               <svg
@@ -64,32 +69,25 @@ const Calendar = () => {
             <S.CalendarDayName>вс</S.CalendarDayName>
           </S.CalendarDayNames>
           <S.CalendarCells>
-            <S.OtherMonth>28</S.OtherMonth>
-            <S.OtherMonth>29</S.OtherMonth>
-            <S.OtherMonth>30</S.OtherMonth>
-            <S.CellDay>31</S.CellDay>
-            {numberDate.map((date, index) => (
-              <S.ActiveDay
-                key={index}
-                $active={date === activeDay ? true : false}
-                onClick={() => handleClick(date)}
-              >
-                {date}
-              </S.ActiveDay>
-            ))}
+            <DayPicker
+              disableNavigation
+              mode="single"
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+              defaultMonth={new Date(selectDate)}
+              required
+            ></DayPicker>
           </S.CalendarCells>
         </S.CalendarContent>
 
-        <input type="hidden" id="datepick_value" value="08.09.2023" />
         <S.CalendarPeriod>
           <p>
             Срок исполнения:
-            <S.CalendarDateControl value={value} onChange={handlerChange}>
-              {value}
+            <S.CalendarDateControl>
+              {format(new Date(selectDate), 'dd.MM.yy')}
             </S.CalendarDateControl>
           </p>
         </S.CalendarPeriod>
-        {/* </div> */}
       </S.CalendarBlock>
     </S.Calendar>
   );

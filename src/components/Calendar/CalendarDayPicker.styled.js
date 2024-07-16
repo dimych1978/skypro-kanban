@@ -13,13 +13,15 @@ export const CalendarTtl = styled.p`
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
-  color: #000;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const CalendarBlock = styled(DayPicker)`
   margin: 0;
   display: block;
   color: #94a6be;
+  --rdp-accent-color: #94a6be;
+  --rdp-background-color: ${({ theme }) => theme.bg};
   --rdp-cell-size: 22px;
   --rdp-caption-font-size: 6px;
 `;
@@ -39,10 +41,12 @@ export const CalendarDateControl = styled.input`
   padding: 4px 2px;
   font-size: 10px;
   font-weight: 700;
-  color: #94a6be;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bgCard};
   display: inline;
   border: none;
-  background-color: #eaeef6;
+  outline: none;
+  width: 50px;
   &::placeholder {
     color: #94a6be;
   }

@@ -41,7 +41,7 @@ export const HeaderUser = styled.a`
 
   font-size: 14px;
   line-height: 20px;
-  color: #565eef;
+  color: ${({ theme }) => theme.btnText};
   &::after {
     content: '';
 
@@ -72,7 +72,8 @@ export const PopUserHeader = styled.div`
 
   text-align: center;
 
-  background: #fff;
+  background-color: ${({ theme }) => theme.bgCard};
+  color: ${({ theme }) => theme.text};
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 10px;
   box-shadow: 0 10px 39px 0 rgb(26 56 101 / 21%);
@@ -84,7 +85,7 @@ export const PopUserName = styled.p`
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
-  color: #000;
+  color: ${({ theme }) => theme.text};
   letter-spacing: -0.14px;
 `;
 
@@ -106,7 +107,7 @@ export const PopUserTheme = styled.div`
   p {
     font-size: 14px;
     line-height: 21px;
-    color: #000;
+    color: ${({ theme }) => theme.text};
     letter-spacing: -0.14px;
   }
 
@@ -131,14 +132,16 @@ export const PopUserTheme = styled.div`
 
     width: 11px;
     height: 11px;
-
-    background-color: #94a6be;
+    background: ${({ theme }) => theme.bg};
+    background-color: ${({ theme }) => theme.check};
     border-radius: 50%;
 
     transition: 0.5s;
   }
 
   input:checked[type='checkbox']::before {
+    background: ${({ theme }) => theme.bg};
+    background-color: ${({ theme }) => theme.check};
     left: 12px;
   }
 `;
@@ -147,17 +150,16 @@ export const BntExit = styled.button`
   width: 72px;
   height: 30px;
 
-  color: #565eef;
+  color: ${({ theme }) => theme.btnText};
+  background-color: ${({ theme }) => theme.btnBg};
 
   background: transparent;
-  border: 1px solid #565eef;
+  border: 1px solid ${({ theme }) => theme.btnText};
   border-radius: 4px;
 
-  ${hover03} {
-    color: #565eef;
-  }
+  ${hover03}
 
   a {
-    color: #565eef;
+    color: ${({ theme }) => theme.btnText};
   }
 `;

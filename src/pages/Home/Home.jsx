@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main';
 import { dark, light } from '../../data';
@@ -9,10 +9,11 @@ import { Outlet } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
 import IfError from '../../components/IfError/IfError';
 import { useCardsContext } from '../../hooks/useCardsContext';
+import { ThemeContext } from '../../providers/themeContext';
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLight, setIsLight] = useState(true);
+  const [isLight] = useContext(ThemeContext);
   const { cards, isError } = useCardsContext();
 
   useEffect(() => {
@@ -40,7 +41,7 @@ function Home() {
           </div>
         ) : (
           <>
-            <Header isLight={isLight} setIsLight={setIsLight} />
+            <Header />
             {isError && <IfError error={isError}>{isError}</IfError>}
             <Main cards={cards} />
             <Outlet />
