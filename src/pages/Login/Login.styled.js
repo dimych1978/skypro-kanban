@@ -6,6 +6,8 @@ export const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
+  background-color: ${({ theme }) => theme.bg};
+  /* background: rgba(0, 0, 0, ${({ theme }) => theme.opacity}); */
 `;
 
 export const Modal = styled.div`
@@ -26,12 +28,12 @@ export const Modal = styled.div`
 export const Block = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.bgCard};
+  border: 0.7px solid ${({ theme }) => theme.border};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
@@ -52,6 +54,7 @@ export const Ttl = styled.div`
     line-height: 30px;
     letter-spacing: -0.6px;
     margin-bottom: 20px;
+    color: ${({ theme }) => theme.text};
   }
 `;
 
@@ -71,6 +74,9 @@ export const Input = styled.input`
   width: 100%;
   min-width: 100%;
   border-radius: 8px;
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.bgCard};
+
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;

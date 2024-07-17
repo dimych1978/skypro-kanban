@@ -3,13 +3,17 @@ import { Wrapper } from '../Home/Home.styled';
 import * as S from '../Login/Login.styled';
 import { GlobalStyles } from '/src/Global.styled';
 import { registryUser } from '/src/api/api';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import IfError from '/src/components/IfError/IfError';
 import { useLoading } from '/src/hooks/useLoading';
 import { Spinner } from '/src/components/Spinner';
+import { light, dark } from '/src/data';
+import { ThemeProvider } from 'styled-components';
+import { ThemeContext } from '../../providers/themeContext';
 
 const Registry = () => {
   const navigate = useNavigate();
+  const [isLight] = useContext(ThemeContext);
 
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
@@ -31,6 +35,10 @@ const Registry = () => {
     setIsLoading(true);
 
     try {
+      for (const key in user) {
+        if (!user[key].trim()) throw new Error('Заполните все поля ввода');
+      }
+
       await registryUser(user);
       navigate('/login');
     } catch (error) {
@@ -42,7 +50,7 @@ const Registry = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={isLight ? light : dark}>
       <GlobalStyles />
       <Wrapper>
         <S.Container>
@@ -88,7 +96,7 @@ const Registry = () => {
           </S.Modal>
         </S.Container>
       </Wrapper>
-    </>
+    </ThemeProvider>
   );
 };
 

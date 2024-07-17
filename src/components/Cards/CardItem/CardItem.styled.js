@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { Green, Orange, Purple } from '../../../Common.styled';
+import { Link } from 'react-router-dom';
 
 export const Item = styled.div`
   padding: 5px;
   animation-name: card-animation;
   animation-duration: 500ms;
   animation-timing-function: linear;
+
+  background-color: ${({ theme }) => theme.bgCard};
 `;
 
 export const Card = styled.div`
@@ -18,10 +21,11 @@ export const Card = styled.div`
   height: 130px;
   padding: 15px 13px 19px;
 
-  background-color: #fff;
   border-radius: 10px;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.bgCard};
 
-  @media screen and (width <= 1200px) {
+  @media screen and (width <= 370px) {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -61,9 +65,9 @@ export const Theme = styled.div`
   padding: 5px 14px;
   border-radius: 18px;
 
-  ${(props) => props.$theme === 'Web Design' && Orange}
-  ${(props) => props.$theme === 'Research' && Green}
-  ${(props) => props.$theme === 'Copywriting' && Purple}
+  ${(props) => props.$topic === 'Web Design' && Orange}
+  ${(props) => props.$topic === 'Research' && Green}
+  ${(props) => props.$topic === 'Copywriting' && Purple}
 
   p {
     font-size: 10px;
@@ -78,10 +82,10 @@ export const Title = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000;
+  color: ${({ theme }) => theme.text};
 `;
 
-export const CardBtn = styled.div`
+export const CardBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-around;

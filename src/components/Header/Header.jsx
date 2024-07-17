@@ -2,18 +2,17 @@ import { LogoDark, LogoLight } from './Logo';
 import Nav from './Nav';
 import * as S from './Header.styled';
 import { Container as SContainer } from '../Main.styled';
+import { useContext } from 'react';
+import { ThemeContext } from '../../providers/themeContext';
 
-const Header = ({ isLight, setIsLight }) => {
-  const handleTheme = () => {
-    setIsLight(!isLight);
-  };
+const Header = () => {
+  const [isLight] = useContext(ThemeContext);
   return (
     <S.Header>
       <SContainer>
         <S.HeaderBlock>
-          <LogoLight />
-          <LogoDark />
-          <Nav isLight={isLight} setIsLight={handleTheme} />
+          {isLight ? <LogoLight /> : <LogoDark />}
+          <Nav />
         </S.HeaderBlock>
       </SContainer>
     </S.Header>

@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Exit.styled';
 
 const Exit = () => {
+  const navigate = useNavigate();
+
   const handleAuth = () => {
     localStorage.clear();
+    navigate('/login');
   };
+
   return (
     <S.Exit id="popExit">
       <S.Container>

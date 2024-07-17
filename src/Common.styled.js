@@ -20,6 +20,7 @@ export const hover03 = css`
   &:hover {
     color: #fff;
     background-color: #33399b;
+    border-color: #33399b;
   }
   &:hover a {
     color: #fff;
@@ -27,23 +28,23 @@ export const hover03 = css`
 `;
 
 export const Orange = css`
-  color: #ff6d00;
-  background-color: #ffe4c2;
+  color: ${({ theme }) => theme.orangeColor};
+  background-color: ${({ theme }) => theme.orangeBg};
 `;
 
 export const Green = css`
-  color: #06b16e;
-  background-color: #b4fdd1;
+  color: ${({ theme }) => theme.greenColor};
+  background-color: ${({ theme }) => theme.greenBg};
 `;
 
 export const Purple = css`
-  color: #9a48f1;
-  background-color: #e9d4ff;
+  color: ${({ theme }) => theme.purpleColor};
+  background-color: ${({ theme }) => theme.purpleBg};
 `;
 
 export const Gray = css`
-  color: #fff;
-  background: #94a6be;
+  color: ${({ theme }) => theme.greyColor};
+  background-color: ${({ theme }) => theme.greyBg};
 `;
 
 export const ActiveCategory = css`
