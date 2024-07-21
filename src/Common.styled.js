@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const hover01 = css`
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: #33399b;
   }
 `;

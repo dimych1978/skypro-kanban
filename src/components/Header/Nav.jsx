@@ -11,7 +11,6 @@ const PopupUser = () => {
 
   const handleTheme = () => {
     setIsLight(!isLight);
-    localStorage.setItem('isLight', isLight);
   };
 
   useEffect(() => {

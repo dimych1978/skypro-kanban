@@ -16,7 +16,10 @@ export const loginUser = async (user) => {
     body: JSON.stringify(user),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error(Object.values(data));
+  if (!response.ok) {
+    throw new Error(Object.values(data));
+  }
+  console.log('🚀 ~ loginUser ~ data:', data);
 
   return data;
 };

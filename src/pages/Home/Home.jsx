@@ -14,7 +14,7 @@ import { ThemeContext } from '../../providers/themeContext';
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLight] = useContext(ThemeContext);
-  const { cards, isError } = useCardsContext();
+  const { isError } = useCardsContext();
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,14 +36,14 @@ function Home() {
               alignItems: 'center',
             }}
           >
-            <h1 style={{}}>...Данные загружаются</h1>
+            <h1>...Данные загружаются</h1>
             <Spinner width="200px" height="200px" />
           </div>
         ) : (
           <>
             <Header />
             {isError && <IfError error={isError}>{isError}</IfError>}
-            <Main cards={cards} />
+            <Main />
             <Outlet />
           </>
         )}

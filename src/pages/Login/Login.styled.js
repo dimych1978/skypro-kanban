@@ -7,7 +7,6 @@ export const Container = styled.div`
   min-height: 100vh;
   margin: 0 auto;
   background-color: ${({ theme }) => theme.bg};
-  /* background: rgba(0, 0, 0, ${({ theme }) => theme.opacity}); */
 `;
 
 export const Modal = styled.div`
@@ -77,7 +76,9 @@ export const Input = styled.input`
   color: ${({ theme }) => theme.text};
   background: ${({ theme }) => theme.bgCard};
 
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid;
+  border-color: ${({ $isErr }) =>
+    $isErr ? 'red' : 'rgba(148, 166, 190, 0.4)'};
   outline: none;
   padding: 10px 8px;
 
@@ -99,7 +100,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
   cursor: pointer;
   width: 100%;
   height: 30px;
@@ -125,6 +126,11 @@ export const Button = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &:disabled {
+    background-color: #94a6be;
+    cursor: auto;
   }
 
   ${hover01}
