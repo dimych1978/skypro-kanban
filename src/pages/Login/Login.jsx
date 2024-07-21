@@ -41,11 +41,14 @@ const Login = () => {
       for (const key in user) {
         if (!user[key].trim()) throw new Error('Заполните все поля ввода');
       }
+      console.log('🚀 ~ handleClick ~ user:', user);
       const response = await loginUser(user);
-      console.log(response);
-      await updateUser(response.user);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      navigate('/');
+      if (response) {
+        console.log(response);
+        await updateUser(response.user);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        navigate('/');
+      }
     } catch (error) {
       console.warn(error.message);
       if (error.message === 'Заполните все поля ввода') {
