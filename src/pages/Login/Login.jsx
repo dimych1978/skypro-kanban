@@ -23,6 +23,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useLoading();
 
   const [user, setUser] = useState({ login: '', password: '' });
+
   const loginRef = useRef();
   const passRef = useRef();
 
@@ -34,17 +35,17 @@ const Login = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
 
     try {
       for (const key in user) {
         if (!user[key].trim()) throw new Error('Заполните все поля ввода');
       }
-      console.log('🚀 ~ handleClick ~ user:', user);
+
       const response = await loginUser(user);
       if (response) {
-        console.log(response);
         await updateUser(response.user);
         localStorage.setItem('user', JSON.stringify(response.user));
         navigate('/');
@@ -60,8 +61,8 @@ const Login = () => {
         setBorderPass(user.password.trim() === '' && true);
         return;
       }
-      console.log(isError);
-      setIsError({ ...isError, err: error.message });
+
+      setIsError({ err: error.message, unavailable: true });
     } finally {
       setIsLoading(false);
     }

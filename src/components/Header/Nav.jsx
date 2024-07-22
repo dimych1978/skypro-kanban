@@ -1,8 +1,9 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import * as S from './Nav.styled';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../hooks/useUserContext';
 import { ThemeContext } from '../../providers/themeContext';
+import { PopUserContext } from '../../providers/popUserContext';
 
 const PopupUser = () => {
   const { user } = useUserContext();
@@ -39,7 +40,7 @@ const PopupUser = () => {
 };
 
 const Nav = () => {
-  const [popupUser, setPopupUser] = useState(false);
+  const { popupUser, setPopupUser } = useContext(PopUserContext);
   const { user } = useUserContext();
 
   const handleUser = () => {

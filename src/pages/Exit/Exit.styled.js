@@ -124,13 +124,3 @@ export const BtnNo = styled.button`
     color: ${({ theme }) => theme.btnText};
   }
 `;
-
-// export const Links = styled(Link)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   width: 100%;
-//   height: 100%;
-//   color: #565eef;
-// `;

@@ -1,12 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './Exit.styled';
+import { useContext } from 'react';
+import { PopUserContext } from '../../providers/popUserContext';
 
 const Exit = () => {
   const navigate = useNavigate();
+  const { setPopupUser } = useContext(PopUserContext);
 
   const handleAuth = () => {
     localStorage.clear();
     navigate('/login');
+  };
+
+  const handleStay = () => {
+    setPopupUser(false);
+    navigate('/');
   };
 
   return (
@@ -19,8 +27,8 @@ const Exit = () => {
               <S.BtnYes id="exitYes" onClick={handleAuth}>
                 <Link to="/login">Да, выйти</Link>
               </S.BtnYes>
-              <S.BtnNo id="exitNo">
-                <Link to="/">Нет, остаться</Link>
+              <S.BtnNo id="exitNo" onClick={handleStay}>
+                <Link to={'/'}>Нет, остаться</Link>
               </S.BtnNo>
             </S.Group>
           </form>

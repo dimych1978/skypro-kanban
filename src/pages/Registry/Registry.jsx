@@ -3,7 +3,7 @@ import { Wrapper } from '../Home/Home.styled';
 import * as S from '../Login/Login.styled';
 import { GlobalStyles } from '/src/Global.styled';
 import { registryUser } from '/src/api/api';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import IfError from '/src/components/IfError/IfError';
 import { useLoading } from '/src/hooks/useLoading';
 import { Spinner } from '/src/components/Spinner';
@@ -15,7 +15,10 @@ const Registry = () => {
   const navigate = useNavigate();
   const [isLight] = useContext(ThemeContext);
 
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState({ err: null, unavailable: false });
+  const [borderLogin, setBorderLogin] = useState(false);
+  const [borderPass, setBorderPass] = useState(false);
+  const [borderName, setBorderName] = useState(false);
   const [isLoading, setIsLoading] = useLoading();
 
   const [user, setUser] = useState({
@@ -24,14 +27,22 @@ const Registry = () => {
     password: '',
   });
 
+  const loginRef = useRef();
+  const passRef = useRef();
+  const nameRef = useRef();
+
   const handleChange = (e) => {
-    setIsError(null);
+    setIsError({ err: null, unavailable: false });
+    borderLogin === true &&
+      setBorderLogin(loginRef.current.value === '' && true);
+    borderPass === true && setBorderPass(passRef.current.value === '' && true);
+    borderName === true && setBorderName(nameRef.current.value === '' && true);
 
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleRegistry = async () => {
-    setIsError(null);
+  const handleRegistry = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
 
     try {
@@ -42,8 +53,20 @@ const Registry = () => {
       await registryUser(user);
       navigate('/login');
     } catch (error) {
-      setIsError(error.message);
       console.warn(error.message);
+
+      if (error.message === 'Заполните все поля ввода') {
+        setIsError({
+          err: error.message,
+          unavailable: true,
+        });
+        setBorderLogin(user.login.trim() === '' && true);
+        setBorderPass(user.password.trim() === '' && true);
+        setBorderName(user.name.trim() === '' && true);
+        return;
+      }
+
+      setIsError({ err: error.message, unavailable: true });
     } finally {
       setIsLoading(false);
     }
@@ -61,28 +84,39 @@ const Registry = () => {
               </S.Ttl>
               <S.LoginForm id="formLogUP">
                 <S.Input
+                  ref={nameRef}
                   type="text"
                   name="name"
                   id="first-name"
                   placeholder="Имя"
+                  $isErr={borderName}
                   onChange={handleChange}
                 />
                 <S.Input
+                  ref={loginRef}
                   type="text"
                   name="login"
                   id="loginReg"
                   placeholder="Эл. почта"
+                  $isErr={borderLogin}
                   onChange={handleChange}
                 />
                 <S.Input
+                  ref={passRef}
                   type="password"
                   name="password"
                   id="passwordFirst"
                   placeholder="Пароль"
+                  $isErr={borderPass}
                   onChange={handleChange}
                 />
-                {isError && <IfError error={isError} />}
-                <S.Button id="SignUpEnter" onClick={handleRegistry}>
+                {isError.err && <IfError error={isError.err} />}
+                <S.Button
+                  id="SignUpEnter"
+                  onClick={handleRegistry}
+                  disabled={isError.unavailable}
+                >
+                  {' '}
                   <p to="/login">Зарегистрироваться</p>
                 </S.Button>
                 <Spinner display={isLoading ? 'inline' : 'none'} />
