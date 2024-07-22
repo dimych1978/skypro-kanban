@@ -24,7 +24,7 @@ export const CardsProvider = ({ children }) => {
           .catch((err) => {
             if (err.message === 'Failed to fetch')
               setIsError('Не удалось загрузить данные, попробуйте позже');
-            console.error(isError);
+            // console.error(isError);
           });
     } catch (error) {
       console.warn(error.message);
