@@ -162,4 +162,8 @@ export const BntExit = styled.button`
   a {
     color: ${({ theme }) => theme.btnText};
   }
+
+  a {
+    color: #565eef;
+  }
 `;
