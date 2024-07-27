@@ -48,6 +48,20 @@ export const addTask = async (token, newTask) => {
   return data;
 };
 
+export const editTask = async (token, id, editedTask) => {
+  const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(editedTask),
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(Object.values(data));
+  return data;
+};
+
 export const deleteTask = async (token, id) => {
   const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
     method: 'DELETE',

@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import * as S from './CardItem.styled';
+import { formatDate } from 'date-fns';
 
 const CardItem = ({ title, topic, date, id }) => {
   return (
     <S.Item>
       <S.Card>
         <S.Group>
-          <S.Theme $theme={topic}>
+          <S.Theme $topic={topic}>
             <p>{topic}</p>
           </S.Theme>
-          <a href="#popBrowse" target="_self" />
-          <S.CardBtn>
+          <S.CardBtn to={`/card/${id}`}>
             <div></div>
             <div></div>
             <div></div>
@@ -49,7 +49,7 @@ const CardItem = ({ title, topic, date, id }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{date}</p>
+            <p>{formatDate(new Date(date), 'dd.MM.yy')}</p>
           </S.Date>
         </S.Content>
       </S.Card>

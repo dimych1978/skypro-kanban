@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import * as S from './Nav.styled';
 import { Link } from 'react-router-dom';
-import { user } from '../../data';
+import { useUserContext } from '../../hooks/useUserContext';
+import { ThemeContext } from '../../providers/themeContext';
+import { PopUserContext } from '../../providers/popUserContext';
 
-const PopupUser = ({ isLight, setIsLight }) => {
+const PopupUser = () => {
+  const { user } = useUserContext();
+  const [isLight, setIsLight] = useContext(ThemeContext);
+  const ref = useRef();
+
   const handleTheme = () => {
     setIsLight(!isLight);
   };
+
+  useEffect(() => {
+    if (!isLight) ref.current.checked = true;
+  }, [isLight]);
 
   return (
     <S.PopUserHeader id="user-set-target">
@@ -15,6 +25,7 @@ const PopupUser = ({ isLight, setIsLight }) => {
       <S.PopUserTheme>
         <p>Темная тема</p>
         <input
+          ref={ref}
           type="checkbox"
           className="checkbox"
           name="checkbox"
@@ -28,13 +39,12 @@ const PopupUser = ({ isLight, setIsLight }) => {
   );
 };
 
-const Nav = ({ isLight, setIsLight }) => {
-  const [popupUser, setPopupUser] = useState(false);
+const Nav = () => {
+  const { popupUser, setPopupUser } = useContext(PopUserContext);
+  const { user } = useUserContext();
+
   const handleUser = () => {
     setPopupUser(!popupUser);
-  };
-  const handleTheme = () => {
-    setIsLight(isLight);
   };
 
   return (
@@ -43,7 +53,7 @@ const Nav = ({ isLight, setIsLight }) => {
         <Link to={'/newcard'}>Создать новую задачу</Link>
       </S.Button>
       <S.HeaderUser onClick={handleUser}>{user.name}</S.HeaderUser>
-      {popupUser && <PopupUser isLight={isLight} setIsLight={handleTheme} />}
+      {popupUser && <PopupUser />}
     </S.Nav>
   );
 };

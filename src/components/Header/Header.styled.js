@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Header = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.bgCard};
 `;
 export const HeaderBlock = styled.div`
   position: relative;

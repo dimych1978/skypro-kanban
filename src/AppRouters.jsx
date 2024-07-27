@@ -7,59 +7,34 @@ import Exit from './pages/Exit/Exit';
 import Home from './pages/Home/Home';
 import NewCard from './pages/NewCard/NewCard';
 import { PrivateRoute } from './PrivateRote';
-import { useEffect, useState } from 'react';
-import { getTasks } from './api/api';
+import { useUserContext } from './hooks/useUserContext';
+import Edit from './pages/Edit/Edit';
 
 const appRouters = {
   HOME: '/',
   LOGIN: '/login',
   REGISTRY: '/registry',
   CARD: '/card/:cardId',
+  EDIT: '/edit/:cardId',
   NEWCARD: '/newcard',
   EXIT: '/exit',
 };
 
 const AppRouters = () => {
-  const [cards, setCards] = useState('');
-  const [isError, setIsError] = useState(null);
-  const [token, setToken] = useState(null);
-  useEffect(() => {
-    token &&
-      getTasks(token)
-        .then((data) => setCards(data.tasks))
-        .catch((err) => {
-          if (err.message === 'Failed to fetch')
-            setIsError('Не удалось загрузить данные, попробуйте позже');
-          setIsError(err.message);
-          console.error(err.message);
-        });
-  }, [token]);
+  const { user } = useUserContext();
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute token={token} />}>
-          <Route
-            path={appRouters.HOME}
-            element={<Home cards={cards} isError={isError} />}
-          >
-            <Route
-              path={appRouters.CARD}
-              element={
-                <CardPage cardList={cards} token={token} setCards={setCards} />
-              }
-            ></Route>
-            <Route
-              path={appRouters.NEWCARD}
-              element={<NewCard setCards={setCards} />}
-            ></Route>
+        <Route element={<PrivateRoute token={user?.token} />}>
+          <Route path={appRouters.HOME} element={<Home />}>
+            <Route path={appRouters.CARD} element={<CardPage />}></Route>
+            <Route path={appRouters.EDIT} element={<Edit />}></Route>
+            <Route path={appRouters.NEWCARD} element={<NewCard />}></Route>
             <Route path={appRouters.EXIT} element={<Exit />}></Route>
           </Route>
         </Route>
-        <Route
-          path={appRouters.LOGIN}
-          element={<Login setToken={setToken} />}
-        ></Route>
+        <Route path={appRouters.LOGIN} element={<Login />}></Route>
         <Route path={appRouters.REGISTRY} element={<Registry />}></Route>
         <Route path={'/*'} element={<NotFound />}></Route>
       </Routes>

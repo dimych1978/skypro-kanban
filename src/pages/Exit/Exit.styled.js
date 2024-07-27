@@ -24,7 +24,8 @@ export const Container = styled.div`
   min-height: 100vh;
   padding: 0 16px;
 
-  background: rgb(0 0 0 / 40%);
+  background-color: ${({ theme }) => theme.bg};
+  background: rgba(0, 0, 0, ${({ theme }) => theme.opacity});
 `;
 
 export const Block = styled.div`
@@ -35,8 +36,8 @@ export const Block = styled.div`
   margin: 0 auto;
   padding: 50px 60px;
 
-  background-color: #fff;
-  border: 0.7px solid #d4dbe5;
+  background-color: ${({ theme }) => theme.bgCard};
+  border: 0.7px solid ${({ theme }) => theme.border};
   border-radius: 10px;
   box-shadow: 0 4px 67px -12px rgb(0 0 0 / 13%);
 `;
@@ -103,11 +104,10 @@ export const BtnNo = styled.button`
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
-  color: #fff;
   letter-spacing: -0.14px;
 
   background-color: transparent;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid ${({ theme }) => theme.btnBg};
   border-radius: 4px;
   outline: none;
 
@@ -121,15 +121,6 @@ export const BtnNo = styled.button`
     width: 100%;
     height: 100%;
     color: #565eef;
+    color: ${({ theme }) => theme.btnText};
   }
 `;
-
-// export const Links = styled(Link)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   width: 100%;
-//   height: 100%;
-//   color: #565eef;
-// `;

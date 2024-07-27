@@ -5,4 +5,3 @@ export const useLoading = () => {
 
   return [isLoading, setIsLoading];
 };
-

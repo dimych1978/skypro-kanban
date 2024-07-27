@@ -7,5 +7,7 @@ export const LogoLight = styled.div`
 `;
 
 export const LogoDark = styled.div`
-  display: none;
+  img {
+    width: 85px;
+  }
 `;
