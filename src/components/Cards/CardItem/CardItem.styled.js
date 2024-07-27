@@ -7,8 +7,6 @@ export const Item = styled.div`
   animation-name: card-animation;
   animation-duration: 500ms;
   animation-timing-function: linear;
-
-  /* background-color: ${({ theme }) => theme.bgCard}; */
 `;
 
 export const Card = styled.div`
