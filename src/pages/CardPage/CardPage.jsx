@@ -2,11 +2,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { statusList } from '../../data';
 import Calendar from '/src/components/Calendar/CalendarFix';
 import * as S from './CardPage.styled';
-import { deleteTask, getTasks } from '../../api/api';
+import { deleteTask } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useCardsContext } from '../../hooks/useCardsContext';
 import { useUserContext } from '../../hooks/useUserContext';
+import { useState } from 'react';
+import IfError from '../../components/IfError/IfError';
 
 const CardPage = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const CardPage = () => {
 
   const { cards, updateCards } = useCardsContext();
 
+  const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
 
   let { cardId } = useParams();
@@ -21,10 +24,16 @@ const CardPage = () => {
 
   const handleDelete = async () => {
     setIsLoading(true);
-    await deleteTask(user.token, card._id);
-    await getTasks(user.token).then((data) => updateCards(data.tasks));
-    setIsLoading(false);
-    navigate('/');
+    try {
+      const tasks = await deleteTask(user.token, card._id);
+      updateCards(tasks.tasks);
+
+      navigate('/');
+    } catch (error) {
+      setIsError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -70,6 +79,7 @@ const CardPage = () => {
               </S.ThemeTop>
             </S.ThemeDown>
             <S.Btn>
+              {isError && <IfError error={isError} />}
               <S.BtnGroup>
                 <S.Button>
                   <Link to={`/edit/${card._id}`}>Редактировать задачу</Link>

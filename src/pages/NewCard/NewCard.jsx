@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import IfError from '../../components/IfError/IfError';
-import { addTask, getTasks } from '../../api/api';
+import { addTask } from '../../api/api';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useCardsContext } from '../../hooks/useCardsContext';
 
@@ -46,14 +46,15 @@ const NewCard = () => {
     };
     if (!name || !text) throw new Error('Укажите название и описание задачи');
 
-    await addTask(user.token, newTask);
-    getTasks(user.token).then((data) => updateCards(data.tasks));
+    const tasks = await addTask(user.token, newTask);
+    await updateCards(tasks.tasks);
   };
 
   const handleCreate = async () => {
     try {
       setIsLoading(true);
       await onAddCard(newTask, topic);
+
       navigate('/');
     } catch (error) {
       setIsError(error.message);

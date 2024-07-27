@@ -2,12 +2,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { statusList } from '../../data';
 import Calendar from '/src/components/Calendar/CalendarDayPicker';
 import * as S from './Edit.styled';
-import { deleteTask, editTask, getTasks } from '../../api/api';
+import { deleteTask, editTask } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useCardsContext } from '../../hooks/useCardsContext';
 import { useUserContext } from '../../hooks/useUserContext';
 import { useState } from 'react';
+import IfError from '../../components/IfError/IfError';
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Edit = () => {
 
   const { cards, updateCards } = useCardsContext();
 
+  const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useLoading();
 
   let { cardId } = useParams();
@@ -32,6 +34,7 @@ const Edit = () => {
   };
 
   const handleChange = (e) => {
+    setIsError(null);
     setNewDescription(e.target.value);
   };
 
@@ -40,26 +43,40 @@ const Edit = () => {
   };
 
   const handleSave = async () => {
-    const changedTask = {
-      title: card.title,
-      topic: card.topic,
-      date: new Date(date),
-      status: newStatus,
-      description: newDescription,
-    };
+    setIsLoading(true);
+    try {
+      const changedTask = {
+        title: card.title,
+        topic: card.topic,
+        date: new Date(date),
+        status: newStatus,
+        description: newDescription,
+      };
 
-    await editTask(user.token, cardId, changedTask);
-    const tasks = await getTasks(user.token);
-    await updateCards(tasks.tasks);
-    navigate('/');
+      if (newDescription.trim() === '')
+        throw new Error('Описание задачи должно содержать какой-то текст');
+
+      const tasks = await editTask(user.token, cardId, changedTask);
+      await updateCards(tasks.tasks);
+
+      navigate('/');
+    } catch (error) {
+      setIsError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDelete = async () => {
     setIsLoading(true);
-    await deleteTask(user.token, card._id);
-    await getTasks(user.token).then((data) => updateCards(data.tasks));
-    setIsLoading(false);
-    navigate('/');
+    try {
+      await deleteTask(user.token, card._id);
+      navigate('/');
+    } catch (error) {
+      setIsError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -109,6 +126,7 @@ const Edit = () => {
               </S.ThemeTop>
             </S.ThemeDown>
             <S.Btn>
+              {isError && <IfError error={isError} />}
               <S.BtnGroup>
                 <S.Button onClick={handleSave}>Сохранить</S.Button>
                 <S.Button onClick={() => navigate(`/card/${card._id}`)}>
