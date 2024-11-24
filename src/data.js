@@ -1,76 +1,3 @@
-export const cardList = [
-  {
-    id: 1,
-    theme: 'Web Design',
-    title: 'Название задачи',
-    date: '30.04.2024',
-    status: 'Без статуса',
-  },
-  {
-    id: 2,
-    theme: 'Copywriting',
-    title: 'Название задачи',
-    date: '12.04.2024',
-    status: 'Без статуса',
-  },
-  {
-    id: 3,
-    theme: 'Web Design',
-    title: 'Название задачи',
-    date: '30.06.2024',
-    status: 'Без статуса',
-  },
-  {
-    id: 4,
-    theme: 'Web Design',
-    title: 'Название задачи',
-    date: '30.05.2024',
-    status: 'Нужно сделать',
-  },
-  {
-    id: 5,
-    theme: 'Web Design',
-    title: 'Название задачи',
-    date: '23.03.2024',
-    status: 'Тестирование',
-  },
-  {
-    id: 6,
-    theme: 'Research',
-    title: 'Название задачи',
-    date: '01.07.2024',
-    status: 'В работе',
-  },
-  {
-    id: 7,
-    theme: 'Copywriting',
-    title: 'Название задачи',
-    date: '01.07.2024',
-    status: 'Готово',
-  },
-  {
-    id: 8,
-    theme: 'Research',
-    title: 'Название задачи',
-    date: '01.10.2024',
-    status: 'Готово',
-  },
-  {
-    id: 9,
-    theme: 'Copywriting',
-    title: 'Название задачи',
-    date: '11.11.2024',
-    status: 'Готово',
-  },
-  {
-    id: 10,
-    theme: 'Research',
-    title: 'Название задачи',
-    date: '12.12.2024',
-    status: 'В работе',
-  },
-];
-
 export const statusList = [
   'Без статуса',
   'Нужно сделать',
@@ -81,8 +8,42 @@ export const statusList = [
 
 export const categoriesList = ['Web Design', 'Research', 'Copywriting'];
 
-export const light = { bg: '#EAEEF6', text: '#000' };
+export const light = {
+  bg: '#EAEEF6',
+  bgCard: '#fff',
+  text: '#000',
+  readOnly: '#94A6BE',
+  btnText: '#565EEF',
+  btnBg: '#fff',
+  check: '#94A6BE',
+  border: '#D4DBE5',
+  opacity: 0.4,
+  orangeColor: '#ff6d00',
+  orangeBg: '#ffe4c2',
+  greenColor: '#06b16e',
+  greenBg: '#b4fdd1',
+  purpleColor: '#9a48f1',
+  purpleBg: '#e9d4ff',
+  greyColor: '#fff',
+  greyBg: '#94a6be',
+};
 
-export const dark = { bg: '#151419', text: '#fff' };
-
-export const user = JSON.parse(localStorage.getItem('user')) || null;
+export const dark = {
+  bg: '#151419',
+  bgCard: '#20202C',
+  text: '#fff',
+  readOnly: '#8B94A3',
+  btnText: '#fff',
+  btnBg: '#4E5566',
+  check: '#565EEF',
+  border: '#4E5566',
+  opacity: 0.8,
+  orangeColor: '#ffe4c2',
+  orangeBg: '#ff6d00',
+  greenColor: '#b4fdd1',
+  greenBg: '#06b16e',
+  purpleColor: '#e9d4ff',
+  purpleBg: '#9a48f1',
+  greyColor: '#151419',
+  greyBg: '#94a6be',
+};

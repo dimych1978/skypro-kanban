@@ -1,8 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { statusList } from '../../data';
-import Calendar from '/src/components/Calendar/CalendarFix';
-import * as S from './CardPage.styled';
-import { deleteTask } from '../../api/api';
+import Calendar from '/src/components/Calendar/CalendarDayPicker';
+import * as S from './Edit.styled';
+import { deleteTask, editTask } from '../../api/api';
 import { useLoading } from '../../hooks/useLoading';
 import { Spinner } from '../../components/Spinner';
 import { useCardsContext } from '../../hooks/useCardsContext';
@@ -10,8 +10,9 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { useState } from 'react';
 import IfError from '../../components/IfError/IfError';
 
-const CardPage = () => {
+const Edit = () => {
   const navigate = useNavigate();
+
   const { user } = useUserContext();
 
   const { cards, updateCards } = useCardsContext();
@@ -22,11 +23,41 @@ const CardPage = () => {
   let { cardId } = useParams();
   const card = cards.find((item) => item._id === cardId);
 
-  const handleDelete = async () => {
+  const [newStatus, setNewStatus] = useState(card.status);
+
+  const [date, setDate] = useState(new Date(card.date));
+
+  const [newDescription, setNewDescription] = useState(card.description);
+
+  const handleDate = (date) => {
+    setDate(date);
+  };
+
+  const handleChange = (e) => {
+    setIsError(null);
+    setNewDescription(e.target.value);
+  };
+
+  const changeStatus = (status) => {
+    setNewStatus(status);
+  };
+
+  const handleSave = async () => {
     setIsLoading(true);
     try {
-      const tasks = await deleteTask(user.token, card._id);
-      updateCards(tasks.tasks);
+      const changedTask = {
+        title: card.title,
+        topic: card.topic,
+        date: new Date(date),
+        status: newStatus,
+        description: newDescription,
+      };
+
+      if (newDescription.trim() === '')
+        throw new Error('Описание задачи должно содержать какой-то текст');
+
+      const tasks = await editTask(user.token, cardId, changedTask);
+      await updateCards(tasks.tasks);
 
       navigate('/');
     } catch (error) {
@@ -36,8 +67,20 @@ const CardPage = () => {
     }
   };
 
+  const handleDelete = async () => {
+    setIsLoading(true);
+    try {
+      await deleteTask(user.token, card._id);
+      navigate('/');
+    } catch (error) {
+      setIsError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <S.PopBrows id="popBrowse">
+    <S.PopBrows>
       <S.Container>
         <S.Block>
           <S.Content>
@@ -51,7 +94,11 @@ const CardPage = () => {
               <S.Subttl>Статус</S.Subttl>
               <S.StatusThemes>
                 {statusList.map((status) => (
-                  <S.StatusTheme key={status} $visible={card.status === status}>
+                  <S.StatusTheme
+                    key={status}
+                    $visible={newStatus === status}
+                    onClick={() => changeStatus(status)}
+                  >
                     <p>{status}</p>
                   </S.StatusTheme>
                 ))}
@@ -64,13 +111,13 @@ const CardPage = () => {
                   <S.FormArea
                     name="text"
                     id="textArea01"
-                    readOnly
                     placeholder="Введите описание задачи..."
-                    value={card.description}
+                    defaultValue={card.description}
+                    onChange={handleChange}
                   ></S.FormArea>
                 </S.FormBlock>
               </S.Form>
-              <Calendar selectDate={card.date} />
+              <Calendar selectDate={handleDate} thisDate={card.date} />
             </S.Wrap>
             <S.ThemeDown>
               <S.Subttl>Категория</S.Subttl>
@@ -81,8 +128,9 @@ const CardPage = () => {
             <S.Btn>
               {isError && <IfError error={isError} />}
               <S.BtnGroup>
-                <S.Button>
-                  <Link to={`/edit/${card._id}`}>Редактировать задачу</Link>
+                <S.Button onClick={handleSave}>Сохранить</S.Button>
+                <S.Button onClick={() => navigate(`/card/${card._id}`)}>
+                  Отменить
                 </S.Button>
                 <div style={{ display: 'flex', float: 'right' }}>
                   <S.Button onClick={handleDelete}>Удалить задачу</S.Button>
@@ -100,4 +148,4 @@ const CardPage = () => {
   );
 };
 
-export default CardPage;
+export default Edit;

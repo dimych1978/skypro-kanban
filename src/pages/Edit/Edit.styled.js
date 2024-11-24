@@ -3,7 +3,6 @@ import {
   ActiveCategory,
   Gray,
   Green,
-  Hide,
   Orange,
   Purple,
   hover01,
@@ -124,6 +123,7 @@ export const StatusThemes = styled.div`
 `;
 
 export const StatusTheme = styled.div`
+  cursor: pointer;
   margin-right: 7px;
   margin-bottom: 7px;
   padding: 11px 14px 10px;
@@ -133,7 +133,7 @@ export const StatusTheme = styled.div`
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 24px;
 
-  ${({ $visible }) => ($visible ? Gray : Hide)}
+  ${({ $visible }) => $visible && Gray}
 
   p {
     font-size: 14px;
@@ -173,8 +173,8 @@ export const FormArea = styled.textarea`
   line-height: 1;
   letter-spacing: -0.14px;
 
-  color: ${({ theme }) => theme.readOnly};
-  background: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.bgCard};
+  color: ${({ theme }) => theme.text};
   border: 0.7px solid rgb(148 166 190 / 40%);
   border-radius: 8px;
   outline: none;
@@ -239,7 +239,7 @@ export const Button = styled.button`
   ${BtnBg};
   color: ${({ theme }) => theme.btnText};
   background-color: ${({ theme }) => theme.bgCard};
-  ${hover03};
+  ${hover03}
 `;
 
 export const BtnClose = styled.button`
